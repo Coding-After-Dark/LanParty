@@ -10,8 +10,6 @@ export class AppComponent  implements OnInit{
   constructor(private GameService: GameserviceService) { }
 
   title = 'app';
-  ngOnInit(){
-    this.GameService.GetStuff();
-
+  ngOnInit() {
   }
 }

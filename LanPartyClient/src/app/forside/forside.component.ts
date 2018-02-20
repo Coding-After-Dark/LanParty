@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ConnectionService } from '../services/connection.service';
 @Component({
   selector: 'app-forside',
   templateUrl: './forside.component.html',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForsideComponent implements OnInit {
 
-  constructor() { }
+  title: any;
+  constructor(_connectionService: ConnectionService) {
+    this.title = _connectionService.serverIP;
+   }
 
   ngOnInit() {
   }

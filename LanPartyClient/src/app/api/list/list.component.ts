@@ -6,12 +6,11 @@ import {GameserviceService} from '../../gameservice.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  Stuff;
-  constructor(private gameService:GameserviceService) { }
+
+  constructor(private gameService: GameserviceService) { }
 
   ngOnInit() {
-    this.Stuff = this.gameService.Stuff;
-    alert(this.gameService.Stuff);
+
   }
 
 }
