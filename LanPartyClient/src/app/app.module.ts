@@ -7,12 +7,15 @@ import { ForsideComponent } from './forside/forside.component';
 import { ApiComponent } from './api/api.component';
 import { ListComponent } from './api/list/list.component';
 import { EditComponent } from './api/edit/edit.component';
-import { GameserviceService } from './gameservice.service';
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import {NgxElectronModule} from 'ngx-electron';
+import { NgxElectronModule } from 'ngx-electron';
 import { ConnectionService } from './services/connection.service';
+import { BsDropdownModule } from 'ngx-bootstrap';
+import { AccordionModule } from 'ngx-bootstrap';
+import { GameService } from './services/game.service';
+import { SocketService } from './services/socket.service';
 
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
@@ -33,6 +36,7 @@ const appRoutes: Routes = [
     ChatComponent
   ],
   imports: [
+    BsDropdownModule.forRoot(),
     FormsModule,
     NgxElectronModule,
     FilterPipeModule,
@@ -42,7 +46,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [GameserviceService, ConnectionService],
+  providers: [ConnectionService, GameService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

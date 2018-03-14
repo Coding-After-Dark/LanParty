@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GameserviceService} from '../../gameservice.service';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -7,7 +7,7 @@ import {GameserviceService} from '../../gameservice.service';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private gameService: GameserviceService) { }
+  constructor() { }
 
   ngOnInit() {
 

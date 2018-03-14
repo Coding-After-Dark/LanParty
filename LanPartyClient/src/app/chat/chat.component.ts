@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as io from 'socket.io-client';
+import { SocketService } from '../services/socket.service';
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -11,43 +12,52 @@ export class ChatComponent implements OnInit {
   username = 'yellow penguin';
   msg = 'fag';
   people: Chat[] = [];
-  socket = io('http://localhost:3001');
-  constructor() { }
+  onHidden(): void {
+    console.log('Dropdown is hidden');
+  }
+  onShown(): void {
+    console.log('Dropdown is shown');
+  }
+  isOpenChange(): void {
+    console.log('Dropdown state is changed');
+  }
+  constructor(public _socketService: SocketService) {
+  }
   ngOnInit() {
     this.generateUsername();
     const res = this.username;
     const people = this.people;
-    this.socket.on('connect', function () {
+    this._socketService.socket.on('connect', function () {
       this.emit('join', res);
     });
-    this.socket.on('update-people', function (data: Chat) {
+    this._socketService.socket.on('update-people', function (data: Chat) {
       this.people = data;
       this.people.sort(this.compare);
     }.bind(this));
-    this.socket.on('getMessage',  (data) => {
+    this._socketService.socket.on('getMessage',  (data) => {
       this.InsertMessage(data, data.sender);
     });
-    this.socket.on('addUser',  (data) => {
+    this._socketService.socket.on('addUser',  (data) => {
       this.people.push(data);
-      this.people.sort(this.compare)
+      this.people.sort(this.compare);
     });
   }
 
   SendMessage(input, chatID) {
-    console.log(this.socket.id)
+    console.log(this._socketService.socket.id);
     const res = {
       name: this.username,
       msg: input.value,
       reciever: chatID
     };
-    this.InsertMessage(res,chatID);
-    this.socket.emit('send-message', res);
+    this.InsertMessage(res, chatID);
+    this._socketService.socket.emit('send-message', res);
     input.value = '';
     input.focus();
   }
-  InsertMessage(obj, sender){
-    var bla = this.people.find(p => p.id === sender);
-    if (bla.messages == undefined) {
+  InsertMessage(obj, sender) {
+    const bla = this.people.find(p => p.id === sender);
+    if (bla.messages === undefined) {
       bla.messages = [];
     }
     console.log(bla);

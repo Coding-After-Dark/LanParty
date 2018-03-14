@@ -18,15 +18,15 @@
                     <div class="panel panel-primary">
                         <div class="panel-body" #scrollMe [scrollTop]="scrollMe.scrollHeight">
                             <ul class="chat" >
-                                <li  class="clearfix" [ngClass]="{'right' : msg.reciever != socket.id }" *ngFor="let msg of person.messages">
-                                    <div class="chat-body clearfix" [ngClass]="{'text-right' : msg.reciever != socket.id }">
+                                <li  class="clearfix" [ngClass]="{'right' : msg.reciever != _socketService.socket.id }" *ngFor="let msg of person.messages">
+                                    <div class="chat-body clearfix" [ngClass]="{'text-right' : msg.reciever != _socketService.socket.id }">
                                         <div class="header">
                                             <strong  class="primary-font">{{msg.name}}</strong>
                                         </div>
                                         <p>{{msg.msg}}</p>
                                     </div>
                                 </li>
-                                <li *ngIf="msg.sender == socket.id" class="right clearfix">
+                                <li *ngIf="msg.sender == _socketService.socket.id" class="right clearfix">
                                     <div class="chat-body clearfix">
                                         <div class="header">
                                             <strong class="pull-right primary-font">{{msg.name}}</strong>
@@ -51,24 +51,22 @@
           </div>
           
       </li>
+      <!-- <a class=" dropdown-toggle"  data-toggle="dropdown">{{username}} asdsa<span class="caret"></span></a>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li *ngFor="let person of people" (click)="StartChat(person.id)"><a [style.background-color]="person.color">{{person.name}}</a></li>
+        <li class="divider"></li>
+        <li><a href="#">{{username}}</a></li>
+      </ul> -->
       <li class="dropup">
-    <a class=" dropdown-toggle"  data-toggle="dropdown">Player list<span class="caret"></span></a>
-    <ul class="dropdown-menu dropdown-menu-right">
-      <li *ngFor="let person of people" (click)="StartChat(person.id)"><a [style.background-color]="person.color">{{person.name}}</a></li>
-      <li class="divider"></li>
-      <li><a href="#">{{username}}</a></li>
-    </ul>
+            <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
+                    <a href dropdownToggle (click)="false">Click me for a dropdown, yo!</a>
+                      <ul *dropdownMenu class="dropdown-menu">
+                            <li *ngFor="let person of people" (click)="StartChat(person.id)"><a [style.background-color]="person.color">{{person.name}}</a></li>
+                      </ul>
+                  </span>
 
       </li>
 
     </ul>
   </div>
 </nav>
-<ul id="ChatBox">
-    <li><a>sadasd</a></li>
-    <li>Yoyo</li>
-    <li>Yoyo</li>
-    <li>Yoyo</li>
-    <li>Yoyo</li>
-    
-</ul>
