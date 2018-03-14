@@ -1,3 +1,67 @@
+$height:5%;
+#chat{
+    z-index: 10;;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: $height;
+    background-color:blue;
+
+    display: grid;
+    grid-template-columns: 1fr 300px;
+
+
+    #chatBoxes{
+        background-color:green;
+    }
+    #chatLisButton{
+        position: relative;
+        background-color:pink;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 50px;
+        &:hover{
+            background-color: grey;
+        }
+
+
+    }
+
+}
+
+
+#peopleList{
+    z-index: 0;
+    transition: all ease-out 0.5s;    
+    bottom: 5%;
+    top: 5.3%;
+    right: 0;
+    width:300px;
+    position: absolute;
+    background-color:green;
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: 50px;
+    .peopleListItem{
+        text-align: center;
+        background-color:grey;
+        border-bottom: 1px solid white;
+        vertical-align: middle;
+        line-height: 50px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// GAMMEL CHAT HER
 .container {
     position: absolute;
     bottom:101.5%;

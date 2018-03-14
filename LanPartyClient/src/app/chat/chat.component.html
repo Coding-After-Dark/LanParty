@@ -1,4 +1,43 @@
-<nav class="navbar navbar-inverse navbar-fixed-bottom">
+<div id="chat">
+    <div id="chatBoxes">
+
+    </div>
+    <div id="chatLisButton" (click)="isOpen = !isOpen">
+        yoyo
+
+
+    </div>
+</div>
+<div id="peopleList" [style.top]="isOpen ? '5%' : '95%'">
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+    <div class="peopleListItem">
+        yoyo
+    </div>
+</div>
+<!-- <nav class="navbar navbar-inverse navbar-fixed-bottom">
   <div>
     <ul class="nav navbar-nav pull-right">
       <li *ngFor="let person of people | filterBy: { isOpen: 'true' }" 
@@ -51,12 +90,6 @@
           </div>
           
       </li>
-      <!-- <a class=" dropdown-toggle"  data-toggle="dropdown">{{username}} asdsa<span class="caret"></span></a>
-      <ul class="dropdown-menu dropdown-menu-right">
-        <li *ngFor="let person of people" (click)="StartChat(person.id)"><a [style.background-color]="person.color">{{person.name}}</a></li>
-        <li class="divider"></li>
-        <li><a href="#">{{username}}</a></li>
-      </ul> -->
       <li class="dropup">
             <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
                     <a href dropdownToggle (click)="false">Click me for a dropdown, yo!</a>
@@ -69,4 +102,4 @@
 
     </ul>
   </div>
-</nav>
+</nav> -->

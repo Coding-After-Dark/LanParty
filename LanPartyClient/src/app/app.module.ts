@@ -16,10 +16,13 @@ import { BsDropdownModule } from 'ngx-bootstrap';
 import { AccordionModule } from 'ngx-bootstrap';
 import { GameService } from './services/game.service';
 import { SocketService } from './services/socket.service';
+import { LoadingModule } from 'ngx-loading';
+import { TurnamentComponent } from './turnament/turnament.component';
 
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
   { path: 'Api', component: ApiComponent },
+  { path: 'Turnament', component: TurnamentComponent },
   { path: '',
     redirectTo: '/Forside',
     pathMatch: 'full'
@@ -33,9 +36,11 @@ const appRoutes: Routes = [
     ApiComponent,
     ListComponent,
     EditComponent,
-    ChatComponent
+    ChatComponent,
+    TurnamentComponent
   ],
   imports: [
+    LoadingModule,
     BsDropdownModule.forRoot(),
     FormsModule,
     NgxElectronModule,

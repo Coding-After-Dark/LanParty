@@ -1,7 +1,8 @@
-import { Component, OnInit , OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ConnectionService } from '../services/connection.service';
 import { GameService } from '../services/game.service';
-import {ElectronService} from 'ngx-electron';
+import { ElectronService } from 'ngx-electron';
+import { parse } from 'url';
 @Component({
   selector: 'app-forside',
   templateUrl: './forside.component.html',
@@ -9,24 +10,47 @@ import {ElectronService} from 'ngx-electron';
 })
 export class ForsideComponent implements OnInit {
   title: any;
-  games: any = [];
   connection;
   test;
-  constructor(_connectionService: ConnectionService, public _gameService: GameService, private _electronService: ElectronService) {
+  procent = 'Yo';
+  constructor(_connectionService: ConnectionService, public _gameService: GameService, private _electronService: ElectronService
+    , private ref: ChangeDetectorRef) {
     this.title = _connectionService.serverIP;
 
-   }
-
-  ngOnInit() {
-    this.connection = this._gameService.getGames().subscribe(message => {
-      this.games = message;
-      this.test = this._gameService.getGames();
-    });
-  }
-  getGame(GameName) {
     if (this._electronService.isElectronApp) {
-      this._electronService.ipcRenderer.send('getGame', GameName);
-      alert('Du er nu i gang med at downloade et spil (' + GameName + '), hurra!');
+      this._electronService.ipcRenderer.on('stopDownloading', function (event, data) {
+        let bla = _gameService.games.find(it => {
+          return it.name.toLowerCase().includes(data.toLowerCase());
+        });
+        bla.isDownloading = false;
+        bla.procent = "installed";
+        ref.detectChanges();
+      });
+
+      this._electronService.ipcRenderer.on('updateP', (event, data) => {
+        let bla = _gameService.games.find(it => {
+          return it.name.toLowerCase().includes(data.name.toLowerCase());
+        });
+        bla.isDownloading = false;
+        bla.procent = data.procent + "%";
+        ref.detectChanges();
+        console.log(bla);
+      });
+    }
+
+  }
+  ngOnInit() {
+  }
+  getGame(Game) {
+    if (this._electronService.isElectronApp) {
+      Game.isDownloading = true;
+      this._electronService.ipcRenderer.send('getGame', Game.name);
+      alert('Du er nu i gang med at downloade et spil (' + Game.name + '), hurra!');
+    }
+  }
+  uploadGame() {
+    if (this._electronService.isElectronApp) {
+      this._electronService.ipcRenderer.send('selectGame');
     }
   }
 }

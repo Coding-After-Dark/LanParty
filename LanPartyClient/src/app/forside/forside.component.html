@@ -1,12 +1,14 @@
 
 <div class="container text-center">
   <h3>{{title}}</h3><br>
+  <button class="btn btn-warning btn-block" (click)="uploadGame()">Upload game</button>
   <div class="row">
-    <div class="col-sm-4" *ngFor="let game of games" (click)="getGame(game)">
-      
+    <div class="col-sm-4 games" *ngFor="let game of _gameService.games" (click)="getGame(game)">
       <div>
+      <ngx-loading [show]="game.isDownloading" [config]="{ }"></ngx-loading>
+        
         <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-        <p>{{game}}</p>
+        <p>{{game.name}} - {{game.procent}}</p> 
       </div>
     </div>
     <hr>
