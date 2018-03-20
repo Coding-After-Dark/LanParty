@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { ConnectionService } from '../services/connection.service';
 import { GameService } from '../services/game.service';
 import { ElectronService } from 'ngx-electron';
-import { parse } from 'url';
 @Component({
   selector: 'app-forside',
   templateUrl: './forside.component.html',
@@ -13,6 +12,7 @@ export class ForsideComponent implements OnInit {
   connection;
   test;
   procent = 'Yo';
+
   constructor(_connectionService: ConnectionService, public _gameService: GameService, private _electronService: ElectronService
     , private ref: ChangeDetectorRef) {
     this.title = _connectionService.serverIP;
@@ -39,6 +39,7 @@ export class ForsideComponent implements OnInit {
     }
 
   }
+
   ngOnInit() {
   }
   getGame(Game) {

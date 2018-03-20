@@ -1,14 +1,63 @@
 <div class="container-fluid">
-  <div class="row">
-    <h2 class="text-center">Games</h2>
-    <hr>
-    <div class="col-md-6">
-      <h3>Details</h3>
-    </div>
-    <div class="col-md-6">
-      <h3>List</h3>
-        <app-list></app-list>
-    </div>
-  </div>
+    <input type="text" class="quicksearch" placeholder="Search" (input)="onSearchChange($event.target.value)" />
+    <button (click)="doStuff()">sad</button>
+    <button (click)="doMoreStuff()">sadsadas</button>
 
+    <div class="game-list">
+        <div *ngFor='let game of games' class="game-card-wrapper">
+            <div class="game-card " [ngStyle]="{'background-image': 'url(' +  game.imageUrl + ')'}" title="{{game.title}}">
+               <div>
+                    <span class="total-player-count">
+                            {{game.playerCount}}
+                        </span>
+               </div>
+
+
+                <div class="game-card--hovered">
+                    <div class="game-card-center-button">
+                        <button class="progress-btn state-loading" type="button" >
+                            <span (click)="myEvent($event)" style="position: absolute; top:0; left:0;bottom:0;right:0;"></span>
+                            <span class="progress-btn__content">
+                                Download
+                            </span>
+                            <span class="progress-btn__progress-bar">
+                                <span class="progress-bar__inner"></span>
+                            </span>
+                        </button>
+                        <!-- <button class="send">	
+                                <div class="text">Download</div>
+                                <div class="loader"></div>
+                                <div class="done">Install</div>
+                              </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- <isotope-grid #grid [options]='{ masonry: {fitWidth: true}  }'>
+    <isotope-item *ngFor="let game of _gameService.games">
+      <div class="game-card " [ngStyle]="{'background-image': 'url(' +  game.imageUrl + ')'}" title="{{game.title}}">
+        <div>
+             <span class="total-player-count">
+                     {{game.playerCount}}
+                 </span>
+        </div>
+  
+  
+         <div class="game-card--hovered">
+             <div class="game-card-center-button">
+                 <button class="progress-btn state-loading" type="button" >
+                     <span (click)="myEvent($event)" style="position: absolute; top:0; left:0;bottom:0;right:0;"></span>
+                     <span class="progress-btn__content">
+                         Download
+                     </span>
+                     <span class="progress-btn__progress-bar">
+                         <span class="progress-bar__inner"></span>
+                     </span>
+                 </button>
+             </div>
+         </div>
+     </div>
+    </isotope-item>
+  </isotope-grid> -->

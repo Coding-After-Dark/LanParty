@@ -11,6 +11,7 @@ export class GameService {
       this.games = games;
     });
 
+
    }
    getGames() {
     const observable = new Observable(observer => {

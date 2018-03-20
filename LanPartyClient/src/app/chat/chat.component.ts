@@ -8,7 +8,8 @@ import { SocketService } from '../services/socket.service';
 })
 export class ChatComponent implements OnInit {
 
-  isOpen = true;
+  isOpen = false;
+  isChatOpen = false;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   username = 'yellow penguin';
   msg = 'fag';

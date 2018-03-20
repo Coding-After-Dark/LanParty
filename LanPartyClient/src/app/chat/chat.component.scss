@@ -1,4 +1,5 @@
 $height:5%;
+$baseTransistion: all 0.2s ease-out;
 #chat{
     z-index: 10;;
     position: fixed;
@@ -12,8 +13,11 @@ $height:5%;
     grid-template-columns: 1fr 300px;
 
 
-    #chatBoxes{
+    #chatBar{
         background-color:green;
+        display: grid;
+        grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+        grid-gap: 20px;
     }
     #chatLisButton{
         position: relative;
@@ -27,13 +31,48 @@ $height:5%;
 
 
     }
+    .chatHolder{
+        z-index: 9;
+        position: relative;
+        color:white;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 50px;
+        transition: $baseTransistion;
+        &:hover{
+            background-color:lightgreen;
+            .chatName{
+                background-color:green;
+            }
+        }
+        .chatName{
+            width:100%;
+            height:100%;
+            z-index: 900;
+            background-color:brown;
+        }
+        .chat{
+            height:500px;
+            width:100%;
+            position: absolute;
+            background-color:blue;
+            bottom: 100%;
+            left: 0;
+            z-index: -1;
+            transition: $baseTransistion;
+        }
+    }
 
 }
 
 
 #peopleList{
+    overflow-y: hidden; 
+    overflow-x: hidden;
     z-index: 0;
-    transition: all ease-out 0.5s;    
+    transition: $baseTransistion;    
     bottom: 5%;
     top: 5.3%;
     right: 0;
@@ -43,12 +82,39 @@ $height:5%;
     display:grid;
     grid-template-columns: 1fr;
     grid-auto-rows: 50px;
+    $funktionWidth:50px;
     .peopleListItem{
+        
+        position: relative;
         text-align: center;
         background-color:grey;
         border-bottom: 1px solid white;
         vertical-align: middle;
         line-height: 50px;
+        transition: $baseTransistion;  
+        .peopleFunktions{
+            top:0;
+            font-size: 16px;
+            right: -$funktionWidth;
+            position: absolute;
+            height:100%;
+            width:$funktionWidth;
+            background-color:green;
+            color:white;
+            transition: $baseTransistion;
+            &:hover {
+                background-color:lightgreen;
+            }
+        }
+        &:hover{
+            .peopleFunktions{
+                right: 0;
+            }
+
+            background-color: lightgrey;
+            
+        }
+            
     }
 }
 

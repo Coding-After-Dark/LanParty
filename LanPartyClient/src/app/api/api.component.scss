@@ -1,0 +1,152 @@
+/*Svend stuff */ 
+  
+ //https://codepen.io/iremlopsum/pen/OVKWxo
+ /* Styles, not important */
+ *, *:before, *:after {
+	box-sizing: border-box;
+}
+
+.quicksearch-container {
+	text-align: center;
+}
+
+isotope-grid {
+	//border: 1px solid #333;
+	margin: 20px auto;
+	/* centered */
+	&:after {
+		display: block;
+		clear: both;
+
+		content: '';
+	}
+}
+
+isotope-item  {
+    background-color:lightblue;
+	font-family: 'Roboto', sans-serif;
+
+	display: inline-block;
+
+	margin: 20px 15px;
+	.game-card {
+		position: relative;
+
+		overflow: hidden;
+
+		width: 210px;
+		height: 295px;
+
+		transition: transform 0.3s ease;
+		transform: scale(1.0);
+
+		border-radius: 8px;
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: cover;
+		-webkit-box-shadow: 0 1px 11px 1px #122a33;
+		   -moz-box-shadow: 0 1px 11px 1px #122a33;
+		        box-shadow: 0 1px 11px 1px #122a33;
+
+
+		&::before {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+
+			content: '';
+			transition: all 0.3s ease;
+
+			opacity: 0;
+			border-radius: 8px;
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+
+		&:hover, &.game-card--active {
+			transform: scale(1.1);
+
+			&::before {
+				opacity: 1;
+			}
+			.game-card--hovered {
+				opacity: 1;
+			}
+		}
+
+
+		.game-card--hovered {
+			width: 100%;
+			height: 100%;
+
+			opacity: 1;
+
+			.game-card-center-button {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+
+				transform: translate(-50%, -50%); /* use translate3d to avoid subpixels*/
+			}
+		}
+
+	}
+}
+
+
+.progress-btn {
+	$btnColour: #0277bc;
+
+	line-height: 36px;
+
+	position: relative;
+
+	display: block;
+	overflow: hidden;
+
+	padding: 0 16px;
+
+	cursor: pointer;
+	user-select: none;
+	transition: background-color 0.3s;
+
+	color: #ecf0f1;
+	border-width: 0;
+	border-radius: 2px;
+	outline: none;
+	background-color: $btnColour;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+
+
+	// &:hover {
+	// 	background-color: darken($btnColour, 12%);
+	// }
+
+	&:active {
+		box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+	}
+}
+.total-player-count {
+	font-size: 18px;
+	line-height: 40px;
+
+	position: absolute;
+	top: 10px;
+	right: 10px;
+
+	width: 40px;
+
+	cursor: pointer;
+	user-select: none;
+	transition: all ease-out 0.15s;
+	text-align: center;
+
+	color: white;
+	border-radius: 40px;
+	background-color: rgba($color: #0277bc, $alpha: 1.0);
+	box-shadow: 0 1px 1.5px 0 rgba(0,0,0,0.12), 0 1px 1px 0 rgba(0,0,0,0.24);
+	&:hover {
+		transform: scale(1.2);
+	}
+}
