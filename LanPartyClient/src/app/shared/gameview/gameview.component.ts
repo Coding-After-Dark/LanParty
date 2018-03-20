@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameviewComponent implements OnInit {
   $: JQuery | any;
-  games:any = [];
-  constructor() { 
+  games: any = [];
+  constructor() {
 
     this.games = [
       {
@@ -92,10 +92,11 @@ export class GameviewComponent implements OnInit {
   }
   onSearchChange(searchValue: string) {
     const fn = this;
+;
     fn.$.isotope({
       filter: function() {
-        console.log($(this));
-        return searchValue ? $(this).text().match( searchValue ) || $(this).text().match( searchValue ) : true;
+        //console.log($(this));
+        return searchValue ? $(this).text().toLowerCase().match( searchValue ) : true;
       }
     });
   }
