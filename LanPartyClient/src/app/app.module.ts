@@ -18,7 +18,7 @@ import { GameService } from './services/game.service';
 import { SocketService } from './services/socket.service';
 import { LoadingModule } from 'ngx-loading';
 import { TurnamentComponent } from './turnament/turnament.component';
-import { FilterNamePipe } from './pipe/filter-name.pipe';
+import { GameviewComponent } from './shared/gameview/gameview.component';
 
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     EditComponent,
     ChatComponent,
     TurnamentComponent,
-    FilterNamePipe
+    GameviewComponent
   ],
   imports: [
     LoadingModule,

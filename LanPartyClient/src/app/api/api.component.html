@@ -1,10 +1,10 @@
-<div class="container-fluid">
-    <input type="text" class="quicksearch" placeholder="Search" (input)="onSearchChange($event.target.value)" />
-    <button (click)="doStuff()">sad</button>
-    <button (click)="doMoreStuff()">sadsadas</button>
+<div class="game-list-container">
+    <div class="quicksearch-container">
 
+        <input type="text" class="quicksearch" placeholder="Search" (input)="onSearchChange($event.target.value)" />
+    </div>
     <div class="game-list">
-        <div *ngFor='let game of games' class="game-card-wrapper">
+        <div *ngFor='let game of _gameService.games' class="game-card-wrapper">
             <div class="game-card " [ngStyle]="{'background-image': 'url(' +  game.imageUrl + ')'}" title="{{game.title}}">
                <div>
                     <span class="total-player-count">
@@ -35,29 +35,3 @@
         </div>
     </div>
 </div>
-<!-- <isotope-grid #grid [options]='{ masonry: {fitWidth: true}  }'>
-    <isotope-item *ngFor="let game of _gameService.games">
-      <div class="game-card " [ngStyle]="{'background-image': 'url(' +  game.imageUrl + ')'}" title="{{game.title}}">
-        <div>
-             <span class="total-player-count">
-                     {{game.playerCount}}
-                 </span>
-        </div>
-  
-  
-         <div class="game-card--hovered">
-             <div class="game-card-center-button">
-                 <button class="progress-btn state-loading" type="button" >
-                     <span (click)="myEvent($event)" style="position: absolute; top:0; left:0;bottom:0;right:0;"></span>
-                     <span class="progress-btn__content">
-                         Download
-                     </span>
-                     <span class="progress-btn__progress-bar">
-                         <span class="progress-bar__inner"></span>
-                     </span>
-                 </button>
-             </div>
-         </div>
-     </div>
-    </isotope-item>
-  </isotope-grid> -->

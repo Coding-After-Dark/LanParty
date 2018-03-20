@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable , ChangeDetectorRef } from '@angular/core';
 import { SocketService } from './socket.service';
 import { Observable } from 'rxjs/Observable';
 import {ElectronService} from 'ngx-electron';
@@ -10,7 +10,6 @@ export class GameService {
     this.getGames().subscribe(games => {
       this.games = games;
     });
-
 
    }
    getGames() {

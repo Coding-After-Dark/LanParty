@@ -13,9 +13,13 @@ export class ForsideComponent implements OnInit {
   test;
   procent = 'Yo';
 
-  constructor(_connectionService: ConnectionService, public _gameService: GameService, private _electronService: ElectronService
-    , private ref: ChangeDetectorRef) {
+  constructor(_connectionService: ConnectionService, 
+    public _gameService: GameService, 
+    private _electronService: ElectronService,
+    private ref: ChangeDetectorRef) {
     this.title = _connectionService.serverIP;
+
+
 
     if (this._electronService.isElectronApp) {
       this._electronService.ipcRenderer.on('stopDownloading', function (event, data) {
@@ -37,7 +41,6 @@ export class ForsideComponent implements OnInit {
         console.log(bla);
       });
     }
-
   }
 
   ngOnInit() {
