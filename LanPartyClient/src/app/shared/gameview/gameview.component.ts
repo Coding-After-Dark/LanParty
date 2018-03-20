@@ -92,10 +92,11 @@ export class GameviewComponent implements OnInit {
   }
   onSearchChange(searchValue: string) {
     const fn = this;
+    searchValue = searchValue.toLowerCase();
     fn.$.isotope({
       filter: function() {
         console.log($(this));
-        return searchValue ? $(this).text().match( searchValue ) || $(this).text().match( searchValue ) : true;
+        return searchValue ? $(this).text().toLowerCase().match( searchValue ) || $(this).text().toLowerCase().match( searchValue ) : true;
       }
     });
   }
