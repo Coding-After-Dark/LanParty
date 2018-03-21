@@ -19,10 +19,11 @@ import { SocketService } from './services/socket.service';
 import { LoadingModule } from 'ngx-loading';
 import { TurnamentComponent } from './turnament/turnament.component';
 import { GameviewComponent } from './shared/gameview/gameview.component';
+import { TimeScheduelComponent } from './time-scheduel/time-scheduel.component';
 
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
-  { path: 'Api', component: ApiComponent },
+  { path: 'Time', component: TimeScheduelComponent },
   { path: 'Turnament', component: TurnamentComponent },
   { path: '',
     redirectTo: '/Forside',
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     EditComponent,
     ChatComponent,
     TurnamentComponent,
-    GameviewComponent
+    GameviewComponent,
+    TimeScheduelComponent
   ],
   imports: [
     LoadingModule,
