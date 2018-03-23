@@ -46,16 +46,20 @@ export class ChatComponent implements OnInit {
   }
 
   SendMessage(input, chatID) {
-    console.log(this._socketService.socket.id);
-    const res = {
-      name: this.username,
-      msg: input.value,
-      reciever: chatID
-    };
-    this.InsertMessage(res, chatID);
-    this._socketService.socket.emit('send-message', res);
-    input.value = '';
-    input.focus();
+
+    if (input.value.length > 0) {
+      console.log(this._socketService.socket.id);
+      const res = {
+        name: this.username,
+        msg: input.value,
+        reciever: chatID
+      };
+      this.InsertMessage(res, chatID);
+      this._socketService.socket.emit('send-message', res);
+      input.value = '';
+      input.focus();
+    }
+
   }
   InsertMessage(obj, sender) {
     const bla = this.people.find(p => p.id === sender);

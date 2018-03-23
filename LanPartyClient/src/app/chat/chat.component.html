@@ -13,12 +13,12 @@
                 <div class="chat"  [style.height]="person.active ? '500px' : '0px'">
                     <div class="messages">
                         <div class="message" *ngFor="let msg of person.messages">
-                        {{msg.msg}}
+                        {{msg.name}}: {{msg.msg}}
                         </div>
 
                     </div>
                     <form (ngSubmit)="SendMessage(msgInput,person.id)">
-                            <input id="btn-input" type="text" #msgInput autocomplete="off" class="messageBox" placeholder="Type your message here..." />
+                            <input id="btn-input" type="text" #msgInput autocomplete="off required" class="messageBox" placeholder="Type your message here..." />
                     </form>
                 </div>
         </div>
