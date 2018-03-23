@@ -19,7 +19,7 @@ $baseTransistion: all 0.2s ease-out;
         grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
         grid-gap: 20px;
     }
-    #chatLisButton{
+    #chatListButton{
         position: relative;
         background-color:pink;
         text-align: center;
@@ -43,16 +43,28 @@ $baseTransistion: all 0.2s ease-out;
         transition: $baseTransistion;
         &:hover{
             background-color:lightgreen;
-            .chatName{
+            .chatPersonBar{
                 background-color:green;
             }
         }
-        .chatName{
-            width:100%;
-            height:100%;
-            z-index: 900;
+        .chatPersonBar{
             background-color:brown;
+            
+            display: grid;
+            grid-template-columns: 1fr 50px;
+            z-index: 900;
+            .chatName{
+                width:100%;
+                height:100%;
+                z-index: 900;
+            }
+            .chatClose{
+                &:hover{
+                    background-color:blue;
+                }
+            }
         }
+
         .chat{
             height:500px;
             width:100%;
@@ -62,6 +74,13 @@ $baseTransistion: all 0.2s ease-out;
             left: 0;
             z-index: -1;
             transition: $baseTransistion;
+            .messageBox {
+                position: absolute;
+                left: 0;
+                width: 98%;
+                top: 96%;
+                
+            }
         }
     }
 

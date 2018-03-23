@@ -87,7 +87,6 @@ export class ChatComponent implements OnInit {
     const textB = b.name.toUpperCase();
     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
   }
-  
 }
 export class Chat {
   constructor(

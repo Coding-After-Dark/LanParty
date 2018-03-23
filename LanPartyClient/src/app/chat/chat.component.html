@@ -1,21 +1,35 @@
 <div id="chat">
     <div id="chatBar">
-        <div class="chatHolder" (click)="isChatOpen = !isChatOpen" *ngFor="let person of [0,1,2]">
-                <div class="chatName">
-                    Dette er mit navn
-                </div>
-                <div class="chat"  [style.height]="isChatOpen ? '500px' : '0px'">
-                    
+        <div class="chatHolder" (click)="isChatOpen = !isChatOpen" *ngFor="let person of people | filterBy: { isOpen: 'true' }">
+            <div class="chatPersonBar">
+                    <div class="chatName" (click)="person.active = !person.active">
+                            {{person.name}}
+                        </div>
+                        <div class="chatClose" (click)="person.isOpen = false">
+                            X
+                        </div>
+            </div>
+
+                <div class="chat"  [style.height]="person.active ? '500px' : '0px'">
+                    <div class="messages">
+                        <div class="message" *ngFor="let msg of person.messages">
+                        {{msg.msg}}
+                        </div>
+
+                    </div>
+                    <form (ngSubmit)="SendMessage(msgInput,person.id)">
+                            <input id="btn-input" type="text" #msgInput autocomplete="off" class="messageBox" placeholder="Type your message here..." />
+                    </form>
                 </div>
         </div>
     </div>
-    <div id="chatLisButton" (click)="isOpen = !isOpen">
+    <div id="chatListButton" (click)="isOpen = !isOpen">
         yoyo
     </div>
 </div>
 <div id="peopleList" [style.top]="isOpen ? '5%' : '95%'">
-    <div class="peopleListItem" *ngFor="let person of [0,1,2,3]">
-        yolo
+    <div class="peopleListItem" *ngFor="let person of people" (click)="StartChat(person.id)"> 
+        {{person.name}}
         <div class="peopleFunktions">
             <i class="glyphicon glyphicon-plus-sign"></i>
         </div>
