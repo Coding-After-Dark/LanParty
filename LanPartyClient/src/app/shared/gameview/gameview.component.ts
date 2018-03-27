@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { GameService } from '../../services/game.service';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-gameview',
@@ -8,7 +10,31 @@ import { Component, OnInit } from '@angular/core';
 export class GameviewComponent implements OnInit {
   $: JQuery | any;
   games: any = [];
-  constructor() {
+  constructor(public _gameService:GameService,
+    public _electronService:ElectronService,
+    private ref: ChangeDetectorRef) {
+
+
+    if (this._electronService.isElectronApp) {
+      this._electronService.ipcRenderer.on('stopDownloading', function (event, data) {
+        let bla = _gameService.games.find(it => {
+          return it.name.toLowerCase().includes(data.toLowerCase());
+        });
+        bla.isDownloading = false;
+        bla.procent = "installed";
+        ref.detectChanges();
+      });
+
+      this._electronService.ipcRenderer.on('updateP', (event, data) => {
+        let bla = _gameService.games.find(it => {
+          return it.name.toLowerCase().includes(data.name.toLowerCase());
+        });
+        bla.isDownloading = false;
+        bla.procent = data.procent + "%";
+        ref.detectChanges();
+        console.log(bla);
+      });
+    }
 
     this.games = [
       {
@@ -89,6 +115,13 @@ export class GameviewComponent implements OnInit {
       //   });
       // });
     //#endregion
+  }
+  getGame(Game) {
+    if (this._electronService.isElectronApp) {
+      Game.isDownloading = true;
+      this._electronService.ipcRenderer.send('getGame', Game.name);
+      alert('Du er nu i gang med at downloade et spil (' + Game.name + '), hurra!');
+    }
   }
   onSearchChange(searchValue: string) {
     const fn = this;
