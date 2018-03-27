@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "electron": "electron .",
+    "e": "electron .",
     "electron-build": "ng build --prod && electron .",
     "eb": "ng build --prod && electron ."
   },
