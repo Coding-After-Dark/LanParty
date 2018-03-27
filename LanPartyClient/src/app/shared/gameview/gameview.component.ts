@@ -10,6 +10,7 @@ import { ElectronService } from 'ngx-electron';
 export class GameviewComponent implements OnInit {
   $: JQuery | any;
   games: any = [];
+  modalOpen = false;
   constructor(public _gameService:GameService,
     public _electronService:ElectronService,
     private ref: ChangeDetectorRef) {
@@ -133,6 +134,7 @@ export class GameviewComponent implements OnInit {
       }
     });
   }
+
   ngOnInit() {
   }
 

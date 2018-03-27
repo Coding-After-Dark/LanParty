@@ -90,13 +90,16 @@ socket.on("connection", function (client) {
   //#endregion
   //#region Messages
   client.on("send-message", function (msgObj) {
+    console.log(msgObj)
     var newObj = {
       "reciever": msgObj.reciever,
       "msg": msgObj.msg,
       "name": msgObj.name,
       "sender": client.id
     }
+    console.log(newObj)
     socket.to(msgObj.reciever).emit('getMessage', newObj);
+    console.log(msgObj.reciever)
   });
   //#endregion
   //#region Games

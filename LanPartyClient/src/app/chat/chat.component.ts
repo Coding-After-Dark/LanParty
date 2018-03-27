@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import * as io from 'socket.io-client';
 import { SocketService } from '../services/socket.service';
 @Component({
@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit {
   isOpenChange(): void {
     console.log('Dropdown state is changed');
   }
-  constructor(public _socketService: SocketService) {
+  constructor(public _socketService: SocketService, private ref: ChangeDetectorRef) {
   }
   ngOnInit() {
     this.generateUsername();
@@ -69,9 +69,9 @@ export class ChatComponent implements OnInit {
     console.log(bla);
     bla.messages.push(obj);
     this.StartChat(sender);
+    this.ref.detectChanges();
   }
   StartChat(person) {
-
       this.people.find(p => p.id === person).active = true;
       this.people.find(p => p.id === person).isOpen = true;
   }

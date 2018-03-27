@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '
 import { ConnectionService } from '../services/connection.service';
 import { GameService } from '../services/game.service';
 import { ElectronService } from 'ngx-electron';
+import { IgdbService } from '../services/igdb.service';
 @Component({
   selector: 'app-forside',
   templateUrl: './forside.component.html',
@@ -12,11 +13,14 @@ export class ForsideComponent implements OnInit {
   connection;
   test;
   procent;
-
-  constructor(_connectionService: ConnectionService, 
+  selectedGame: any;
+  games: any = [  ];
+  GameInfo:any;
+  constructor(_connectionService: ConnectionService,
     public _gameService: GameService, 
     private _electronService: ElectronService,
-    private ref: ChangeDetectorRef) {
+    private ref: ChangeDetectorRef,
+    public _igdb: IgdbService) {
     this.title = _connectionService.serverIP;
 
   }
@@ -29,4 +33,35 @@ export class ForsideComponent implements OnInit {
       this._electronService.ipcRenderer.send('selectGame');
     }
   }
+  lookUp(name) {
+    console.log(name);
+    this._igdb.getNames(name).subscribe(
+      (data:any) => {
+        var res = data.filter(p => p.cover === undefined);
+        for (let index = 0; index <  res.length; index++) {
+          const element = res[index];
+          element.cover = {
+            'url': 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover_qhhlj6.jpg'
+          };
+        }
+        this.games = data;
+      }
+    );
+    console.log(this.games);
+  }
+  selectGame(game){
+    this.selectedGame = game;
+    this.games = [];
+    this._igdb.getGameInfo(game.id).subscribe(
+      (data) => {
+        this.GameInfo = data;
+        console.log(data);
+        if (this._electronService.isElectronApp) {
+          this._electronService.ipcRenderer.send('selectGame', data);
+        }
+      }
+    );
+
+  }
+
 }

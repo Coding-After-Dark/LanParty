@@ -1,3 +1,14 @@
+<div id="Modal" style="display:none;">
+  <div id="InputBox">
+      <Input id="gameName" #box (keyup)="lookUp(box.value)">
+      <div class="gameSuggestion" *ngFor="let game of games" (click)="selectGame(game)"> 
+        <img  src="{{game.cover.url}}" height="50px">
+        {{game.name}}
+      </div>
+      {{GameInfo | json}}
+  </div>
+</div>
+
 <div class="container text-center">
   <h3>{{title}}</h3>
   <br>

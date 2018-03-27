@@ -145,3 +145,37 @@
 		transform: scale(1.2);
 	}
 }
+
+#Modal{
+	padding: 50px;
+	z-index: 90000;
+	position:fixed;
+	top:0;
+	height:100%;
+	width: 100%;
+	background-color:rgba($color: #000000, $alpha: 0.9);
+	#InputBox {
+		color:white;
+		background-color:rgba(253, 253, 253, 0.281);
+		.gameSuggestion{
+			width: 100%;
+			font-size: 30px;
+			padding:5px;
+			border-bottom: 1px solid white;
+			&:hover {
+				background-color:green;
+			}
+		}
+	}
+	#gameName{
+		width: 100%;
+		height:50px;
+		font-size: 40px;
+		border: none;
+		background: transparent;
+		border-bottom: 5px solid white;
+		font-weight: 700;
+		line-height: 60px;
+		color:white;
+	}
+}

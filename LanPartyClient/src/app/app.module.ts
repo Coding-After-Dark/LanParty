@@ -20,6 +20,7 @@ import { LoadingModule } from 'ngx-loading';
 import { TurnamentComponent } from './turnament/turnament.component';
 import { GameviewComponent } from './shared/gameview/gameview.component';
 import { TimeScheduelComponent } from './time-scheduel/time-scheduel.component';
+import { IgdbService } from './services/igdb.service';
 
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
@@ -55,7 +56,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [ConnectionService, GameService, SocketService],
+  providers: [ConnectionService, GameService, SocketService, IgdbService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
