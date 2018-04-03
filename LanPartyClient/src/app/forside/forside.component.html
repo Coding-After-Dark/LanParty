@@ -1,11 +1,12 @@
-<div id="Modal" style="display:none;">
+<div id="Modal" style="">
   <div id="InputBox">
       <Input id="gameName" #box (keyup)="lookUp(box.value)">
-      <div class="gameSuggestion" *ngFor="let game of games" (click)="selectGame(game)"> 
+      <div class="gameSuggestion" *ngFor="let game of games" (click)="selectGame(game); box.value = game.name"> 
         <img  src="{{game.cover.url}}" height="50px">
         {{game.name}}
       </div>
       {{GameInfo | json}}
+      <button>Select and upload game</button>
   </div>
 </div>
 

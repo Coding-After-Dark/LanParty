@@ -165,7 +165,9 @@
 			&:hover {
 				background-color:green;
 			}
+
 		}
+
 	}
 	#gameName{
 		width: 100%;
@@ -177,5 +179,13 @@
 		font-weight: 700;
 		line-height: 60px;
 		color:white;
+		&:focus{
+			box-shadow: none;
+			outline: none;
+		}
+		&:active{
+			box-shadow: none;
+			outline: none;
+		}
 	}
 }

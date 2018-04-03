@@ -3,6 +3,7 @@ import { ConnectionService } from '../services/connection.service';
 import { GameService } from '../services/game.service';
 import { ElectronService } from 'ngx-electron';
 import { IgdbService } from '../services/igdb.service';
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-forside',
   templateUrl: './forside.component.html',
@@ -14,10 +15,11 @@ export class ForsideComponent implements OnInit {
   test;
   procent;
   selectedGame: any;
-  games: any = [  ];
-  GameInfo:any;
+  games: any = [];
+  subscription: Subscription;
+  GameInfo: any;
   constructor(_connectionService: ConnectionService,
-    public _gameService: GameService, 
+    public _gameService: GameService,
     private _electronService: ElectronService,
     private ref: ChangeDetectorRef,
     public _igdb: IgdbService) {
@@ -33,24 +35,34 @@ export class ForsideComponent implements OnInit {
       this._electronService.ipcRenderer.send('selectGame');
     }
   }
-  lookUp(name) {
+  lookUp(name: string) {
     console.log(name);
-    this._igdb.getNames(name).subscribe(
-      (data:any) => {
-        var res = data.filter(p => p.cover === undefined);
-        for (let index = 0; index <  res.length; index++) {
-          const element = res[index];
-          element.cover = {
-            'url': 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover_qhhlj6.jpg'
-          };
-        }
-        this.games = data;
+    name = name.trim();
+    if (name === undefined || name === '') {
+      return this.games = [];
+    } else {
+
+      if (this.subscription !== undefined) {
+        this.subscription.unsubscribe();
       }
-    );
-    console.log(this.games);
+      this.subscription = this._igdb.getNames(name).subscribe(
+        (data: any) => {
+          var res = data.filter(p => p.cover === undefined);
+          for (let index = 0; index < res.length; index++) {
+            const element = res[index];
+            element.cover = {
+              'url': 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover_qhhlj6.jpg'
+            };
+          }
+          this.games = data;
+        }
+      );
+      console.log(this.games);
+    }
   }
-  selectGame(game){
+  selectGame(game) {
     this.selectedGame = game;
+
     this.games = [];
     this._igdb.getGameInfo(game.id).subscribe(
       (data) => {
