@@ -72,7 +72,7 @@ ipcMain.on('getGame', (event, arg) => {
         }
       })
       stream.once('close', function () {
-        say.speak(arg + " has now been installed")
+        say.speak(arg + " has now been downloaded")
 
         console.log(data, size, bla);
         console.log("DONE")

@@ -22,8 +22,7 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
-        "../node_modules/isotope-layout/dist/isotope.pkgd.js"
+        "../node_modules/jquery/dist/jquery.min.js"
         
       ],
       "environmentSource": "environments/environment.ts",

@@ -9,11 +9,11 @@ export class IgdbService {
    }
 
   getNames(name: string) {
-    return this.http.get('https://cors-anywhere.herokuapp.com/https://api-endpoint.igdb.com/games/?search=' + name + '&fields=name,id,cover',
+    return this.http.get('https://api-endpoint.igdb.com/games/?search=' + name + '&fields=name,id,cover',
      {headers: this.reqHeader});
   }
   getGameInfo(Id) {
-    return this.http.get('https://cors-anywhere.herokuapp.com/https://api-endpoint.igdb.com/games/' + Id + '?fields=*',
+    return this.http.get('https://api-endpoint.igdb.com/games/' + Id + '?fields=*',
      {headers: this.reqHeader});
   }
 }

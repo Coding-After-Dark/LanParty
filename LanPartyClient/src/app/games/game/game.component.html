@@ -1,0 +1,22 @@
+<div class="game-card" [style.backgroundImage]="'url(' +  game.imageUrl + ')'" title="{{game.title}}">
+    <div class="game-card__title" style="display:none;">
+        {{game.title}}
+    </div>
+    <span class="total-player-count">
+        {{game.playerCount}}
+    </span>
+    <div class="game-card--hovered">
+        <div class="game-card-center-button">
+            <div class="download-btn" (click)="getGame($event, game)" >
+                <div class="download">Download</div>
+                <div class="progress-wrapper" style="--sPercentage: '0%'; --iPercentage: 0;">
+                    <div class="progress__bar">
+                        <div class="progress__text">
+                        </div>
+                    </div>
+                </div>
+                <div class="success">Installer</div>
+            </div>
+        </div>
+    </div>
+</div>
