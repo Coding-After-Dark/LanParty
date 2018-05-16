@@ -4,7 +4,7 @@ import { GameService } from '../shared/game.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 import { IGame } from '../shared/game';
-
+import * as $ from 'jquery';
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',

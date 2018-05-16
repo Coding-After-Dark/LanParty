@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { ElectronService } from 'ngx-electron';
 
 import { IGame } from '../shared/game';
@@ -21,61 +22,69 @@ export class GameComponent implements OnInit, AfterViewInit {
   i = 1; //  set your counter to 1
   constructor(public _electronService: ElectronService,
     private ref: ChangeDetectorRef) {
-      if (this._electronService.isElectronApp) {
-        const $this = this;
-        this._electronService.ipcRenderer.on('stopDownloading', function (event, data) {
-          $($this.$target).addClass('finished').clearQueue();
-          $($this.$target).removeClass('active');
-          $($this.$target).find('.progress__text').addClass('completed').clearQueue();
-          $this.isCompleted = true;
-          console.log(data);
+    if (this._electronService.isElectronApp) {
+      this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
+        $(this.$target).find('.progress-wrapper').css({
+          '--sPercentage': '"100%"',
+          '--iPercentage': 100 + ''
         });
+        $(this.$target).addClass('finished').clearQueue();
+        $(this.$target).removeClass('active');
+        $(this.$target).find('.progress__text').addClass('completed').clearQueue();
+        this.isCompleted = true;
+        console.log(data);
+      });
 
-        this._electronService.ipcRenderer.on('updateP', (event, data) => {
-          $($this.$target).find('.progress-wrapper').css({
-            '--sPercentage': '"' + data.procent + '%"',
-            '--iPercentage': data.procent + ''
-          });
-          console.log(event);
+      this._electronService.ipcRenderer.on('updateP', (event, data) => {
+        $(this.$target).find('.progress-wrapper').css({
+          '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
+          '--iPercentage': data.procent.toFixed(0) + ''
         });
-      }
-
-
-
+        console.log(event);
+      });
     }
+
+
+
+  }
 
   ngOnInit() {
   }
 
   ngAfterViewInit() {
 
- }
-
-getGame(event: MouseEvent, game: IGame) {
-  if (this.isReady) {
-    this.downloadGame(event, game);
-  } else {
-    if (this.isCompleted) {
-      this.installGame(event, game);
-    }
   }
 
-}
+  getGame(event: MouseEvent, game: IGame) {
+    if (this.isReady) {
+      this.downloadGame(event, game);
+    } else {
+      if (this.isCompleted) {
+        this.installGame(event, game);
+      }
+    }
 
- downloadGame(event: MouseEvent, game: IGame) {
-   this.$target = event.currentTarget;
-   this.isReady = false;
+  }
+
+  downloadGame(event: MouseEvent, game: IGame) {
+    this.$target = event.currentTarget;
+    this.isReady = false;
     $(this.$target).addClass('active');
-    $(this.$target).closest('.game-card').addClass('game-card--active');
-    $(this.$target).find('.progress-wrapper').addClass('active').clearQueue();
+      $(this.$target).closest('.game-card').addClass('game-card--active');
+      $(this.$target).find('.progress-wrapper').addClass('active').clearQueue();
+    setTimeout(() => {
     if (this._electronService.isElectronApp) {
       this.isDownloading = true;
       this._electronService.ipcRenderer.send('getGame', game.id + '.rar');
       console.log('Du er nu i gang med at downloade et spil (' + game.title + '), hurra!');
     }
+    }, 600);
+
   }
+
+
   installGame(event: MouseEvent, game: IGame) {
-     console.log('Installing ' + game.title);
+    console.log('Installing ' + game.title);
     // alert(`You have started installing ${game.title}`);
   }
 }
