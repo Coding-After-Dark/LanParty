@@ -17,23 +17,25 @@ export class GameComponent implements OnInit, AfterViewInit {
   isDownloading: Boolean = false;
   isCompleted: Boolean = false;
   percentage: Number = 0;
+  $target;
   i = 1; //  set your counter to 1
   constructor(public _electronService: ElectronService,
     private ref: ChangeDetectorRef) {
       if (this._electronService.isElectronApp) {
+        const $this = this;
         this._electronService.ipcRenderer.on('stopDownloading', function (event, data) {
-          // $(target).addClass('finished').clearQueue();
-          // $(target).removeClass('active');
-          // $(target).find('.progress__text').addClass('completed').clearQueue();
-          this.isCompleted = true;
+          $($this.$target).addClass('finished').clearQueue();
+          $($this.$target).removeClass('active');
+          $($this.$target).find('.progress__text').addClass('completed').clearQueue();
+          $this.isCompleted = true;
           console.log(data);
         });
 
         this._electronService.ipcRenderer.on('updateP', (event, data) => {
-          // $(target).find('.progress-wrapper').css({
-          //   '--sPercentage': '"' + data.procent + '%"',
-          //   '--iPercentage': data.procent + ''
-          // });
+          $($this.$target).find('.progress-wrapper').css({
+            '--sPercentage': '"' + data.procent + '%"',
+            '--iPercentage': data.procent + ''
+          });
           console.log(event);
         });
       }
@@ -50,12 +52,6 @@ export class GameComponent implements OnInit, AfterViewInit {
  }
 
 getGame(event: MouseEvent, game: IGame) {
-  if (this._electronService.isElectronApp) {
-    this.isDownloading = true;
-    this._electronService.ipcRenderer.send('getGame', game.id + '.rar');
-    console.log('Du er nu i gang med at downloade et spil (' + game.title + '), hurra!');
-  }
-
   if (this.isReady) {
     this.downloadGame(event, game);
   } else {
@@ -67,28 +63,16 @@ getGame(event: MouseEvent, game: IGame) {
 }
 
  downloadGame(event: MouseEvent, game: IGame) {
-   const $this = event.currentTarget;
+   this.$target = event.currentTarget;
    this.isReady = false;
-    $($this).addClass('active');
-    $($this).closest('.game-card').addClass('game-card--active');
-    $($this).find('.progress-wrapper').addClass('active').clearQueue();
-  }
-
-
-  myLoop (target) {
-    //  create a loop function
-
-      //  call a 3s setTimeout when the loop is called
-      if (this.i <= 100) {
-        this.i++; //  increment the counter
-
-
-        this.myLoop(target);
-      } else {
-
-
-      }
-
+    $(this.$target).addClass('active');
+    $(this.$target).closest('.game-card').addClass('game-card--active');
+    $(this.$target).find('.progress-wrapper').addClass('active').clearQueue();
+    if (this._electronService.isElectronApp) {
+      this.isDownloading = true;
+      this._electronService.ipcRenderer.send('getGame', game.id + '.rar');
+      console.log('Du er nu i gang med at downloade et spil (' + game.title + '), hurra!');
+    }
   }
   installGame(event: MouseEvent, game: IGame) {
      console.log('Installing ' + game.title);

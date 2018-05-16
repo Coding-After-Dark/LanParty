@@ -47,11 +47,11 @@ export class ForsideComponent implements OnInit {
       }
       this.subscription = this._igdb.getNames(name).subscribe(
         (data: any) => {
-          var res = data.filter(p => p.cover === undefined);
+          const res = data.filter(p => p.cover === undefined);
           for (let index = 0; index < res.length; index++) {
             const element = res[index];
             element.cover = {
-              'url': 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover_qhhlj6.jpg'
+              'url': '//images.igdb.com/igdb/image/upload/t_thumb/nocover_qhhlj6.jpg'
             };
           }
           this.games = data;
