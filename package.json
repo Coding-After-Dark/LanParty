@@ -1,0 +1,19 @@
+{
+  "name": "lanparty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Coding-After-Dark/LanParty.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Coding-After-Dark/LanParty/issues"
+  },
+  "homepage": "https://github.com/Coding-After-Dark/LanParty#readme"
+}

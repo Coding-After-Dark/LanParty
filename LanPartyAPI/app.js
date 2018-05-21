@@ -1,6 +1,54 @@
+//region Electron
+const { app, BrowserWindow } = require('electron')
+
+let win;
+
+function createWindow () {
+  // Create the browser window.
+  win = new BrowserWindow({
+    width: 600, 
+    height: 600,
+    backgroundColor: '#ffffff',
+    icon: `file://${__dirname}/adminWeb/dist/adminWeb/assets/logo.png`
+  })
+
+
+  win.loadURL(`file://${__dirname}/adminWeb/dist/adminWeb/index.html`)
+
+  //// uncomment below to open the DevTools.
+  // win.webContents.openDevTools()
+
+  // Event when the window is closed.
+  win.on('closed', function () {
+    win = null
+  })
+}
+
+// Create window on electron intialization
+app.on('ready', createWindow)
+
+// Quit when all windows are closed.
+app.on('window-all-closed', function () {
+
+  // On macOS specific close process
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', function () {
+  // macOS specific close process
+  if (win === null) {
+    createWindow()
+  }
+})
+//#endregion
+
+
+
 var express = require('express');
 var path = require('path');
-var app = express();
+var appExp = express();
 var fs = require('fs');
 var Datastore = require('nedb'), db = new Datastore({ filename: 'Yo', autoload: true });
 var savedGames;
@@ -44,7 +92,7 @@ console.log(ServerIP);
 
 //#region SocketIO
 var people = [];
-var http = require('http').Server(app);
+var http = require('http').Server(appExp);
 var socket = require('socket.io')(http);
 http.listen(3001, function () {
   console.log('listening on *:3001');
@@ -164,4 +212,4 @@ gaius
 
 
 //Socket IO setup END
-module.exports = app;
+module.exports = appExp;

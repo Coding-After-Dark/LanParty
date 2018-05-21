@@ -1,9 +1,17 @@
 {
   "name": "todoapp",
   "version": "0.0.0",
+  "main": "app.js",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bins/www"
+    "start": "nodemon ./bins/www",
+    "ng": "ng",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "electron": "electron .",
+    "electron-build": "ng build --prod && electron ."
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -25,5 +33,8 @@
     "socket.io": "^2.0.4",
     "udp-discovery": "0.0.3",
     "udp-node": "^2.1.0"
+  },
+  "devDependencies": {
+    "electron": "^2.0.1"
   }
 }
