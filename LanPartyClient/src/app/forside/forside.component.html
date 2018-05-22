@@ -1,4 +1,4 @@
-<div id="Modal" >
+<div id="Modal" *ngIf="openModal" >
   <div id="InputBox">
       <Input id="gameName" #box (keyup)="lookUp(box.value)">
       <div class="gameSuggestion" *ngFor="let game of games" (click)="selectGame(game); box.value = game.name"> 
@@ -13,7 +13,7 @@
 <div class="container text-center">
   <h3>{{title}}</h3>
   <br>
-  <button class="btn btn-warning btn-block" (click)="uploadGame()">Upload game</button>
+  <button class="btn btn-warning btn-block" (click)="openModal = !openModal">Upload game</button>
   <div class="row">
     <app-game-list></app-game-list>
   </div>

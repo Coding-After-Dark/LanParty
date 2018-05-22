@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./forside.component.scss']
 })
 export class ForsideComponent implements OnInit {
+  openModal = false;
   title: any;
   connection;
   test;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Renderer2 } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { ElectronService } from 'ngx-electron';
 
@@ -20,29 +20,29 @@ export class GameComponent implements OnInit, AfterViewInit {
   percentage: Number = 0;
   $target;
   i = 1; //  set your counter to 1
-  constructor(public _electronService: ElectronService,
+  constructor(public _electronService: ElectronService, private renderer: Renderer2,
     private ref: ChangeDetectorRef) {
-    if (this._electronService.isElectronApp) {
-      this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
-        $(this.$target).find('.progress-wrapper').css({
-          '--sPercentage': '"100%"',
-          '--iPercentage': 100 + ''
-        });
-        $(this.$target).addClass('finished').clearQueue();
-        $(this.$target).removeClass('active');
-        $(this.$target).find('.progress__text').addClass('completed').clearQueue();
-        this.isCompleted = true;
-        console.log(data);
-      });
+    // if (this._electronService.isElectronApp) {
+    //   this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
+    //     $(this.$target).find('.progress-wrapper').css({
+    //       '--sPercentage': '"100%"',
+    //       '--iPercentage': 100 + ''
+    //     });
+    //     $(this.$target).addClass('finished').clearQueue();
+    //     $(this.$target).removeClass('active');
+    //     $(this.$target).find('.progress__text').addClass('completed').clearQueue();
+    //     this.isCompleted = true;
+    //     console.log(this.game);
+    //   });
 
-      this._electronService.ipcRenderer.on('updateP', (event, data) => {
-        $(this.$target).find('.progress-wrapper').css({
-          '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
-          '--iPercentage': data.procent.toFixed(0) + ''
-        });
-        console.log(event);
-      });
-    }
+    //   this._electronService.ipcRenderer.on('updateP', (event, data) => {
+    //     $(this.$target).find('.progress-wrapper').css({
+    //       '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
+    //       '--iPercentage': data.procent.toFixed(0) + ''
+    //     });
+    //     console.log(event);
+    //   });
+    // }
 
 
 
@@ -69,13 +69,13 @@ export class GameComponent implements OnInit, AfterViewInit {
   downloadGame(event: MouseEvent, game: IGame) {
     this.$target = event.currentTarget;
     this.isReady = false;
-    $(this.$target).addClass('active');
+      $(this.$target).addClass('active');
       $(this.$target).closest('.game-card').addClass('game-card--active');
       $(this.$target).find('.progress-wrapper').addClass('active').clearQueue();
     setTimeout(() => {
     if (this._electronService.isElectronApp) {
       this.isDownloading = true;
-      this._electronService.ipcRenderer.send('getGame', game.id + '.rar');
+      this._electronService.ipcRenderer.send('getGame', game.slug + '.rar');
       console.log('Du er nu i gang med at downloade et spil (' + game.title + '), hurra!');
     }
     }, 600);
