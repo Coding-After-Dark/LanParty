@@ -1,7 +1,7 @@
 .LayoutGrid{
     background-color:green;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: minmax(50px, 1fr) 20fr;
 }
