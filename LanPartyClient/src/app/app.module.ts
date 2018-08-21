@@ -25,7 +25,8 @@ import { GameComponent } from './games/game/game.component';
 import { GameListComponent } from './games/game-list/game-list.component';
 import { TimeScheduelComponent } from './time-scheduel/time-scheduel.component';
 import { TurnamentComponent } from './turnament/turnament.component';
-
+import { TurnamentService } from './services/turnament.service';
+import {NgxLocalStorageModule} from 'ngx-localstorage';
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
   { path: 'Time', component: TimeScheduelComponent },
@@ -51,6 +52,7 @@ const appRoutes: Routes = [
     TimeScheduelComponent
   ],
   imports: [
+    NgxLocalStorageModule.forRoot(),
     LoadingModule,
     BsDropdownModule.forRoot(),
     FormsModule,
@@ -62,7 +64,7 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule
   ],
-  providers: [ConnectionService, GameService, SocketService, IgdbService],
+  providers: [ConnectionService, GameService, SocketService, IgdbService, TurnamentService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

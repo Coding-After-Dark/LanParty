@@ -1,14 +1,16 @@
 header {
   min-width:100%;
   min-height:5%;
-  background-color:pink;
+  background-color:rgba(255,255,255,0.15);
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
 
     a {
+      transition: all 0.2s ease-out;
+      display: grid;
+      align-items: center;
       font-size: 24px;
       text-align: center;
-      display: inline-block;
       vertical-align: middle;
       width:100%;
       height: 100%;

@@ -1,6 +1,7 @@
 <div class="game-list-container">
     <div class="quicksearch-container">
         <input class="quicksearch" placeholder="Search" type="text" [(ngModel)]='listFilter'>
+        <hr>
     </div>
     <div class="game-list">
         <app-game *ngFor='let game of filteredGames;' class="game-card-wrapper" [game]='game'></app-game>

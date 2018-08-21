@@ -78,7 +78,8 @@ export class ChatComponent implements OnInit {
   generateUsername() {
     const stuff = ['Sweating', 'Running', 'Spanking', 'Fucking', 'Fisting', 'Wanking', 'Stroking',
       'Throbbing', 'Moaning', 'Heiling', 'Blue', 'Yellow', 'Big', 'Small', 'Tiny', 'Huge', 'Rare', 'Epic', 'Legendary', 'Steamy',
-      'Ugly', 'Shitting', 'Abused', 'Satanic', 'Holy', 'A True', 'Tall', 'Divine', 'Soulless', 'White', 'Black',
+      'Ugly', 'Shitting', 'Abused', 'Satanic', 'Holy', 'A True', 'Tall', 'Divine', 'Soulless', 'White', 'Black', 'Saint',
+      'Comrad', 'Slav master'
     ];
     const more = ['Cow', 'Child', 'Moose', 'Buffalo', 'Potato', 'Midget', 'Slave', 'Asian',
      'Hippie', 'German', 'Johnson', 'Weaboo', 'Loli', 'Soldier', 'Hawk', 'Ginger' , 'Rubber duck'];
