@@ -3,6 +3,10 @@ const { ipcMain } = require('electron')
 const fs = require('fs');
 const say = require('say')
 const { dialog } = require('electron')
+const url = require('url');
+
+const args = process.argv.slice(1);
+serve = args.some(val => val === '--serve');
 
 let win;
 let serverIP = "1.2.3.4";
@@ -98,7 +102,23 @@ function createWindow() {
     backgroundColor: '#ffffff',
     icon: `file://${__dirname}/dist/assets/logo.png`
   })
-  win.loadURL(`file://${__dirname}/dist/index.html`)
+  
+  if (serve) {
+    require('electron-reload')(__dirname, {
+     electron: require(`${__dirname}/node_modules/electron`)});
+    win.loadURL('http://localhost:4200');
+
+  } else {
+    var url = url.format({
+      pathname: path.join(__dirname, 'dist/index.html'),
+      protocol: 'file:',
+      slashes: true,
+    })
+    win.loadURL(url);
+
+
+  }
+
   //// uncomment below to open the DevTools.
   // win.webContents.openDevTools()
   // Event when the window is closed.
