@@ -7,6 +7,7 @@ export interface IGame {
     imageUrl: string;
     playerCount: number;
     state: states;
+    percentage: number;
 }
 
 export enum states {

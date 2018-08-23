@@ -15,18 +15,18 @@ export class GameService {
     if (this._electronService.isElectronApp) {
       this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
       const game = this.games.find(p => p.slug === data.split('.')[0]);
+        game.percentage = 100;
         game.state = 2;
         console.log('Wuhuu');
         console.log(game);
       });
 
-      // this._electronService.ipcRenderer.on('updateP', (event, data) => {
-      //   $(this.$target).find('.progress-wrapper').css({
-      //     '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
-      //     '--iPercentage': data.procent.toFixed(0) + ''
-      //   });
-      //   console.log(event);
-      // });
+      this._electronService.ipcRenderer.on('updateP', (event, data) => {
+        console.log(data);
+        // const game = this.games.find(p => p.slug === data.split('.')[0]);
+
+       // game.percentage = data.procent.toFixed(0);
+      });
     }
     // this.getGames().subscribe(games => {
     //   this.games = games;
@@ -41,7 +41,8 @@ export class GameService {
     description: 'Real-time strategy game in a fantasy setting.',
     imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/warkeyigiyyknusmfev2.jpg',
     playerCount: 10,
-    state: 0
+    state: 0,
+    percentage: 0
   },
   {
     id: 124,
@@ -52,7 +53,8 @@ export class GameService {
     description: 'Left 4 Dead 2 is a 2-4 player co-op first person shooter that requires tons of cooperation and intense zombie slaughtering in order to survive.There is a variety of enemies, weapons, and objectives to keep things interesting, with co-op that is focused around having fun playing with your friends.',
     imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/eckumjvspgvgsap4wmp2.jpg',
     playerCount: 4,
-    state: 0
+    state: 0,
+    percentage: 0
   },
   {
     id: 2963,
@@ -63,7 +65,8 @@ export class GameService {
     description: 'Dota 2 is a multiplayer online battle arena video game and the stand-alone sequel to the Defense of the Ancients (DotA) mod. Each match of Dota 2 involves two teams, both containing five players and occupying a fortified stronghold at either end of the map. Victory is achieved by destroying the enemys Ancient, a building that is invulnerable until certain objectives are achieved. Each player controls a "Hero" character and focuses on leveling up, acquiring items and fighting against the other team to achieve victory during each match.',
     imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/qcx7vedma0pvf0hzisxc.jpg',
     playerCount: 5,
-    state: 0
+    state: 0,
+    percentage: 0
   },
   {
     id: 11198,
@@ -74,7 +77,8 @@ export class GameService {
     description: 'Rocket League is a third-person, physics based soccer game, where players control rocket powered cars in order to hit the ball towards a goal. Basically, a car based soccer/football game.',
     imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover_qhhlj6.jpg',
     playerCount: 3,
-    state: 0
+    state: 0,
+    percentage: 0
   },
   {
     id: 891,
@@ -85,7 +89,8 @@ export class GameService {
     description: 'Team Fortress 2 is a multi-platform, first-person shooter, multiplayer game that focuses on team based gameplay, where each player has their own unique role on the team.',
     imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/ijp2rheve0eccuhtanli.jpg',
     playerCount: 4,
-    state: 0
+    state: 0,
+    percentage: 0
   },
   {
     id: 888,
@@ -95,7 +100,8 @@ export class GameService {
     description: 'Supreme Commander is a real time strategy game set in a fictional sci-fi universe.',
     imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/x2gbk38zhbhxhs2omgsr.jpg',
     playerCount: 7,
-    state: 0
+    state: 0,
+    percentage: 0
   },
 ];
 
