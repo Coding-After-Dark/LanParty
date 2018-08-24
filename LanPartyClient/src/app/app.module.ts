@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule , OnInit} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ForsideComponent } from './forside/forside.component';
 import { ApiComponent } from './api/api.component';
@@ -9,7 +9,7 @@ import { ListComponent } from './api/list/list.component';
 import { FormsModule } from '@angular/forms';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { NgxElectronModule } from 'ngx-electron';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, } from 'ngx-bootstrap';
 import { AccordionModule } from 'ngx-bootstrap';
 import { LoadingModule } from 'ngx-loading';
 
@@ -20,13 +20,12 @@ import { SocketService } from './services/socket.service';
 import { EditComponent } from './api/edit/edit.component';
 
 import { ChatComponent } from './chat/chat.component';
-import { GameviewComponent } from './shared/gameview/gameview.component';
 import { GameComponent } from './games/game/game.component';
 import { GameListComponent } from './games/game-list/game-list.component';
 import { TimeScheduelComponent } from './time-scheduel/time-scheduel.component';
 import { TurnamentComponent } from './turnament/turnament.component';
 import { TurnamentService } from './services/turnament.service';
-import {NgxLocalStorageModule} from 'ngx-localstorage';
+import { NgxLocalStorageModule } from 'ngx-localstorage';
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
   { path: 'Time', component: TimeScheduelComponent },
@@ -46,7 +45,6 @@ const appRoutes: Routes = [
     EditComponent,
     ChatComponent,
     TurnamentComponent,
-    GameviewComponent,
     GameComponent,
     GameListComponent,
     TimeScheduelComponent
