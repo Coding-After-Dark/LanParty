@@ -44,7 +44,11 @@ ipcMain.on('selectGame', () => {
     var result = parts[parts.length - 1]
     c.append(gameURL, result, function (err,stream) {
       if (err) throw err;
-      c.end();
+        say.speak(result + " has now been uploaded")
+
+        console.log("DONE")
+
+        c.end();
     });
   })
 }
@@ -54,12 +58,17 @@ ipcMain.on('selectGame', () => {
 
 ipcMain.on('getGame', (event, arg) => {
 
+  var bizz = app.getPath('downloads');
+  console.log(bizz)
+  console.log(arg);
+  const fileUrl = bizz + "/" + arg;
   c.connect({ 'host': serverIP, 'port': 20000 });
   c.size(arg, function (err, fileSize) {
     var size = fileSize
     var data = 0;
     var percentage = 0;
     var count = 0;
+    console.log(fileUrl)
     c.get(arg, function (err, stream) {
       if (err) throw err;
       stream.on('data', function (chunk) {
@@ -84,7 +93,8 @@ ipcMain.on('getGame', (event, arg) => {
 
         c.end();
       });
-      stream.pipe(fs.createWriteStream(arg));
+      console.log('saving at :' + fileUrl)
+      stream.pipe(fs.createWriteStream(fileUrl));
 
     });
 

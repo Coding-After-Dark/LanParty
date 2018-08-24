@@ -56,9 +56,9 @@ export class ForsideComponent implements OnInit {
             };
           }
           this.games = data;
+          console.log('gotGames');
         }
       );
-      console.log(this.games);
     }
   }
   selectGame(game) {
