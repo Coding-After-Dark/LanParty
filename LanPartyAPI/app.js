@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var appExp = express();
 var fs = require('fs');
-var Datastore = require('nedb'), db = new Datastore({ filename: 'Yo', autoload: true });
+var Datastore = require('nedb'), db = new Datastore({ filename: 'GameDatabase', autoload: true });
 var savedGames;
 
 
