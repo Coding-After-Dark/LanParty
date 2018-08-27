@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { ConnectionService } from '../services/connection.service';
-import { GameService } from '../services/game.service';
 import { ElectronService } from 'ngx-electron';
 import { IgdbService } from '../services/igdb.service';
 import { Subscription } from 'rxjs/Subscription';
+import { GameService } from '../games/shared/game.service';
 @Component({
   selector: 'app-forside',
   templateUrl: './forside.component.html',

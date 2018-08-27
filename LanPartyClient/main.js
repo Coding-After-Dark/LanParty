@@ -11,6 +11,10 @@ serve = args.some(val => val === '--serve');
 let win;
 let serverIP = "1.2.3.4";
 
+
+
+
+
 var Client = require('ftp');
 var c = new Client();
 const UdpNode = require('udp-node')
@@ -57,7 +61,7 @@ ipcMain.on('selectGame', () => {
 })
 
 ipcMain.on('getGame', (event, arg) => {
-
+  
   var bizz = app.getPath('downloads');
   console.log(bizz)
   console.log(arg);

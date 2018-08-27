@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "api": "cd ./LanPartyAPI/ && npm start",
+    "client": "cd ./LanPartyClient/ && npm start",
+
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "node installScript.js"
   },

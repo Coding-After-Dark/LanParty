@@ -14,7 +14,6 @@ import { AccordionModule } from 'ngx-bootstrap';
 import { LoadingModule } from 'ngx-loading';
 
 import { ConnectionService } from './services/connection.service';
-import { GameService } from './services/game.service';
 import { IgdbService } from './services/igdb.service';
 import { SocketService } from './services/socket.service';
 import { EditComponent } from './api/edit/edit.component';
@@ -27,6 +26,8 @@ import { TimeScheduelComponent } from './time-scheduel/time-scheduel.component';
 import { TurnamentComponent } from './turnament/turnament.component';
 import { TurnamentService } from './services/turnament.service';
 import {NgxLocalStorageModule} from 'ngx-localstorage';
+import { GameService } from './games/shared/game.service';
+import { GameFilterPipe } from './games/shared/game-filter.pipe';
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
   { path: 'Time', component: TimeScheduelComponent },
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     GameviewComponent,
     GameComponent,
     GameListComponent,
-    TimeScheduelComponent
+    TimeScheduelComponent,
+    GameFilterPipe
   ],
   imports: [
     NgxLocalStorageModule.forRoot(),

@@ -19,11 +19,14 @@ readFiles(path.join(__dirname, 'public/')) // found @ https://stackoverflow.com/
 function readFiles(dirname) {
   console.log(dirname)
   fs.readdir(dirname, function (err, filenames) {
+  console.log(filenames)
+  filenames = filenames.filter(p => p.includes('.rar'))
     awesomeArray = [];
     for (let index = 0; index < filenames.length; index++) {
       const element = filenames[index];
       awesomeArray.push({
-        'name': element
+        'title': element,
+        'slug': element
       })
     }
     savedGames = awesomeArray;

@@ -9,33 +9,30 @@ import * as $ from 'jquery';
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss'],
-  providers: [GameService]
+
 })
 
 export class GameListComponent implements OnInit, AfterViewInit {
   filteredGames: IGame[];
-  games: IGame[];
+  _listFilter = '';
 
-  _listFilter: string;
-  get listFilter(): string {
-    return this._listFilter;
-  }
+  // get listFilter(): string {
+  //   return this._listFilter;
+  // }
 
-  set listFilter(value: string) {
-    this._listFilter = value;
-    this.filteredGames = this.listFilter ? this.performFilter(this.listFilter) : this.games;
-  }
+  // set listFilter(value: string) {
+  //   this._listFilter = value;
+  //   this.filteredGames = this.listFilter ? this.performFilter(this.listFilter) : this._gameService.games;
+  // }
 
-  constructor(_gameService: GameService) {
-    this.games = _gameService.games;
-    this.filteredGames = this.games;
-    this.listFilter = '';
-
+  constructor(public _gameService: GameService) {
+    this._listFilter = '';
+    this.filteredGames = _gameService.games;
   }
 
   performFilter(filterBy: string): IGame[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.games.filter((game: IGame) => game.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    return this._gameService.games.filter((game: IGame) => game.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   ngOnInit() {

@@ -80,7 +80,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
     if (this._electronService.isElectronApp) {
 
-      this._electronService.ipcRenderer.send('getGame', game.slug + '.rar');
+      this._electronService.ipcRenderer.send('getGame', game.slug);
       game.state = 1;
       console.log('Du er nu i gang med at downloade et spil (' + game.title + '), hurra!');
     }
