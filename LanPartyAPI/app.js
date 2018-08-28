@@ -15,8 +15,9 @@ function getRandomColor() {
 
 
 
-readFiles(path.join(__dirname, 'public/')) // found @ https://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
-function readFiles(dirname) {
+readFiles() // found @ https://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object
+function readFiles() {
+  var dirname = path.join(__dirname, 'public/');
   console.log(dirname)
   fs.readdir(dirname, function (err, filenames) {
   console.log(filenames)
@@ -108,6 +109,7 @@ socket.on("connection", function (client) {
   client.on("addGame", (gameObject) => {
     db.insert(doc, function (err, newGame) {
       console.log("Game Added")
+      readFiles();
       socket.sockets.emit("gameAdded", newGame)
     });
   })

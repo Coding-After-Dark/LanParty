@@ -6,9 +6,9 @@
   "scripts": {
     "api": "cd ./LanPartyAPI/ && npm start",
     "client": "cd ./LanPartyClient/ && npm start",
-
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node installScript.js"
+    "install": "node installScript.js",
+    "start": "npm-run-all -p api client"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/Coding-After-Dark/LanParty/issues"
   },
-  "homepage": "https://github.com/Coding-After-Dark/LanParty#readme"
+  "homepage": "https://github.com/Coding-After-Dark/LanParty#readme",
+  "dependencies": {
+    "npm-run-all": "^4.1.3"
+  }
 }
