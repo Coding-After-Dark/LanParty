@@ -70,7 +70,7 @@ ipcMain.on('getGame', (event, arg) => {
   c.size(arg, function (err, fileSize) {
     var size = fileSize
     var data = 0;
-    var bla = 0;
+    var percentage = 0;
     var count = 0;
     console.log(fileUrl)
     c.get(arg, function (err, stream) {
@@ -79,9 +79,9 @@ ipcMain.on('getGame', (event, arg) => {
         data += chunk.length;
         if (count == 1000) {
           console.log(count);
-          bla = data / size * 100;
+          percentage = data / size * 100;
 
-          win.webContents.send('updateP', { procent: bla, name: arg })
+          win.webContents.send('updateP', { percentage: percentage, name: arg })
           count = 0;
         }
         else {
@@ -91,7 +91,7 @@ ipcMain.on('getGame', (event, arg) => {
       stream.once('close', function () {
         say.speak(arg + " has now been downloaded")
 
-        console.log(data, size, bla);
+        console.log(data, size, percentage);
         console.log("DONE")
         win.webContents.send('stopDownloading', arg)
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Renderer2 } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+
 import { ElectronService } from 'ngx-electron';
 
 import { IGame } from '../shared/game';
@@ -22,31 +22,31 @@ export class GameComponent implements OnInit, AfterViewInit {
   i = 1; //  set your counter to 1
   constructor(public _electronService: ElectronService, private renderer: Renderer2,
     private ref: ChangeDetectorRef) {
-    // if (this._electronService.isElectronApp) {
-    //   this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
-    //     this.percentage = 100;
-    //     this.isCompleted = true;
+    if (this._electronService.isElectronApp) {
+      this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
+        this.percentage = 100;
+        this.isCompleted = true;
 
-    //     // $(this.$target).find('.progress-wrapper').css({
-    //     //   '--sPercentage': '"100%"',
-    //     //   '--iPercentage': 100 + ''
-    //     // });
-    //     // $(this.$target).addClass('finished').clearQueue();
-    //     // $(this.$target).removeClass('active');
-    //     // $(this.$target).find('.progress__text').addClass('completed').clearQueue();
+        // $(this.$target).find('.progress-wrapper').css({
+        //   '--sPercentage': '"100%"',
+        //   '--iPercentage': 100 + ''
+        // });
+        // $(this.$target).addClass('finished').clearQueue();
+        // $(this.$target).removeClass('active');
+        // $(this.$target).find('.progress__text').addClass('completed').clearQueue();
 
-    //   console.log(this.game);
-    //   });
+      console.log(this.game);
+      });
 
-    //   this._electronService.ipcRenderer.on('updateP', (event, data) => {
-    //     this.percentage = data.procent.toFixed(0);
-    //     // $(this.$target).find('.progress-wrapper').css({
-    //     //   '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
-    //     //   '--iPercentage': data.procent.toFixed(0) + ''
-    //     // });
-    //    // console.log(this.percentage);
-    //   });
-    // }
+      this._electronService.ipcRenderer.on('updateP', (event, data) => {
+       // this.percentage = data.procent.toFixed(0);
+        // $(this.$target).find('.progress-wrapper').css({
+        //   '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
+        //   '--iPercentage': data.procent.toFixed(0) + ''
+        // });
+       // console.log(this.percentage);
+      });
+    }
 
 
 

@@ -1,16 +1,15 @@
-import { Injectable , ChangeDetectorRef } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
 
 import { Observable } from 'rxjs/Observable';
-import {ElectronService} from 'ngx-electron';
+import { ElectronService } from 'ngx-electron';
 
-import { IGame, states } from './game';
-import { Direction } from 'ngx-bootstrap/carousel/carousel.component';
+import { IGame } from './game';
 
 @Injectable()
 export class GameService {
   games: IGame[] = [];
-  constructor(public _socketService: SocketService, private _electronService: ElectronService) {
+  constructor(public _socketService: SocketService, private _electronService: ElectronService, public ref: ChangeDetectorRef) {
 
     this.getGames().subscribe((games: IGame[]) => {
       this.games = games;
@@ -18,18 +17,19 @@ export class GameService {
 
     if (this._electronService.isElectronApp) {
       this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
-      const game = this.games.find(p => p.slug === data.split('.')[0]);
+        const game = this.games.find(p => p.slug === data.split('.')[0]);
         game.percentage = 100;
         game.state = 2;
-        console.log('Wuhuu');
         console.log(game);
+        ref.detectChanges();
       });
 
       this._electronService.ipcRenderer.on('updateP', (event, data) => {
-        console.log(data);
-        // const game = this.games.find(p => p.slug === data.split('.')[0]);
+        const game = this.games.find(p => p.slug === data.name.split('.')[0]);
 
-       // game.percentage = data.procent.toFixed(0);
+        game.percentage = data.percentage.toFixed(0);
+        console.log(game.percentage);
+        ref.detectChanges();
       });
     }
     // this.getGames().subscribe(games => {
