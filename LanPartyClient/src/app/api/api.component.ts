@@ -1,5 +1,4 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { GameService } from '../services/game.service';
 
 
 @Component({
@@ -9,7 +8,7 @@ import { GameService } from '../services/game.service';
 })
 export class ApiComponent implements OnInit {
   text = 'dota';
-  constructor(public _gameService: GameService) {
+  constructor() {
     
   }
 

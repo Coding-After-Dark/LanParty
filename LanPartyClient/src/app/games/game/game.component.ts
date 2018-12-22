@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, AfterViewInit, ChangeDetectorRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, Renderer2 } from '@angular/core';
 
 import { ElectronService } from 'ngx-electron';
 
-import { IGame } from '../shared/game';
+import { IGame, states } from '../shared/game';
 import * as $ from 'jquery';
 
 @Component({
@@ -19,37 +19,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   isCompleted: Boolean = false;
   percentage: Number = 0;
 
-  i = 1; //  set your counter to 1
-  constructor(public _electronService: ElectronService, private renderer: Renderer2,
-    private ref: ChangeDetectorRef) {
-    if (this._electronService.isElectronApp) {
-      this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
-        this.percentage = 100;
-        this.isCompleted = true;
-
-        // $(this.$target).find('.progress-wrapper').css({
-        //   '--sPercentage': '"100%"',
-        //   '--iPercentage': 100 + ''
-        // });
-        // $(this.$target).addClass('finished').clearQueue();
-        // $(this.$target).removeClass('active');
-        // $(this.$target).find('.progress__text').addClass('completed').clearQueue();
-
-      console.log(this.game);
-      });
-
-      this._electronService.ipcRenderer.on('updateP', (event, data) => {
-       // this.percentage = data.procent.toFixed(0);
-        // $(this.$target).find('.progress-wrapper').css({
-        //   '--sPercentage': '"' + data.procent.toFixed(0) + '%"',
-        //   '--iPercentage': data.procent.toFixed(0) + ''
-        // });
-       // console.log(this.percentage);
-      });
-    }
-
-
-
+  constructor(public _electronService: ElectronService) {
   }
 
   ngOnInit() {
@@ -58,7 +28,6 @@ export class GameComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
 
   }
-
   getGame(event: MouseEvent, game: IGame) {
     if (this.isReady) {
       this.downloadGame(event, game);
@@ -81,7 +50,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     if (this._electronService.isElectronApp) {
 
       this._electronService.ipcRenderer.send('getGame', game.slug);
-      game.state = 1;
+      game.state = states.isDownloading;
       console.log('Du er nu i gang med at downloade et spil (' + game.title + '), hurra!');
     }
     }, 600);
@@ -91,6 +60,5 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   installGame(event: MouseEvent, game: IGame) {
     console.log('Installing ' + game.title);
-    // alert(`You have started installing ${game.title}`);
   }
 }

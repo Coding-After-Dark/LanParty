@@ -1,4 +1,5 @@
 <div class="game-card" [class.game-card--active]="game.state==1" [style.backgroundImage]="'url(' +  game.imageUrl + ')'" title="{{game.title}}">
+    {{game | json}}
     <div class="NicolaiTest">
         <div class="NicolaiTestKnap"  (click)="getGame($event, game)" >
                  <div class="textCenter">
@@ -10,24 +11,8 @@
                 </div>
         </div>
     </div>
-    <div class="game-card__title" style="display:none;">
+    <div class="game-card__title">
         {{game.title}}
     </div>
-    <!-- <span class="total-player-count">
-        {{game.playerCount}}
-    </span> -->
-    <!-- <div class="game-card--hovered">
-        <div class="game-card-center-button">
-            <div class="download-btn" (click)="getGame($event, game)" [class.active]="game.state==1" [class.finished]="game.state==2">
-                <div class="download">Download {{game.title}}</div>
-                <div class="progress-wrapper" style="--sPercentage: '0%'; --iPercentage: 0;" [class.active]="game.state==1">
-                    <div class="progress__bar">
-                        <div class="progress__text" [class.completed]="game.state==2">
-                        </div>
-                    </div>
-                </div>
-                <div class="success">Installer</div>
-            </div>
-        </div>
-    </div> -->
+
 </div>

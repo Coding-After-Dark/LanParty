@@ -23,7 +23,7 @@ export class ChatComponent implements OnInit {
   isOpenChange(): void {
     console.log('Dropdown state is changed');
   }
-  constructor(public _socketService: SocketService, private ref: ChangeDetectorRef) {
+  constructor(public _socketService: SocketService, public ref:ChangeDetectorRef) {
   }
   ngOnInit() {
     this.generateUsername();
@@ -66,7 +66,6 @@ export class ChatComponent implements OnInit {
     if (bla.messages === undefined) {
       bla.messages = [];
     }
-    console.log(bla);
     bla.messages.push(obj);
     this.StartChat(sender);
     this.ref.detectChanges();

@@ -1,5 +1,6 @@
 $blue: #0277bc;
 $white: #ffffff;
+
 .game-card {
     .NicolaiTest {
         z-index: 1;
@@ -82,16 +83,13 @@ $white: #ffffff;
             left: 50%;
             transform: translate(-50%, -50%);
             .download-btn {
-                --buttonBorder: 2px;
-                --fontSize: 16px;
-                --buttonWidth: 100px;
                 box-sizing: border-box; // Needed for correct progress__bar width
-                font-size: var(--fontSize);
+                // font-size: var(--fontSize);
                 font-weight: 700;
-                line-height: var(--fontSize);
+                // line-height: var(--fontSize);
                 position: relative;
                 overflow: hidden;
-                width: var(--buttonWidth);
+                // width: var(--buttonWidth);
                 padding: 15px 0;
                 cursor: pointer;
                 user-select: none;
@@ -103,7 +101,6 @@ $white: #ffffff;
                 background-color: $blue;
                 &.active {
                     padding: 5px 15px;
-                    transition: 0.4s cubic-bezier(0.35, -0.77, 0.67, 1.88);
                     .download {
                         transition: 0.35s cubic-bezier(0.34, -0.61, 1, 0.64);
                         transform: translateY(-350%) scale(0);
@@ -119,17 +116,17 @@ $white: #ffffff;
                 }
                 .progress-wrapper {
                     position: absolute;
-                    top: var(--buttonBorder);
-                    left: var(--buttonBorder);
+                    // top: var(2);
+                    // left: var(2);
                     overflow: hidden;
-                    width: calc(100% - var(--buttonBorder) * 2);
-                    height: calc(100% - var(--buttonBorder) * 2);
+                    // width: calc(100% - var(--buttonBorder) * 2);
+                    // height: calc(100% - var(--buttonBorder) * 2);
                     transform: translateY(300%) scale(0);
                     &:before {
                         display: flex;
                         flex-direction: column;
                         height: 100%;
-                        content: var(--sPercentage);
+                        // content: var(--sPercentage);
                         color: $white;
                         justify-content: center;
                     }
@@ -142,17 +139,17 @@ $white: #ffffff;
                         top: 0;
                         left: 0;
                         overflow: hidden;
-                        width: calc(var(--iPercentage) * 1%);
+                        // width: calc(var(--iPercentage) * 1%);
                         height: 100%;
                         background: $white;
                         .progress__text {
-                            width: calc(var(--buttonWidth) - var(--buttonBorder) * 2);
+                            // width: calc(var(--buttonWidth) - var(--buttonBorder) * 2);
                             height: 100%;
                             &:before {
                                 display: flex;
                                 flex-direction: column;
                                 height: 100%;
-                                content: var(--sPercentage);
+                                // content: var(--sPercentage);
                                 transform: translateY(0%) scale(1);
                                 text-align: center;
                                 color: $blue;
@@ -166,7 +163,7 @@ $white: #ffffff;
                     }
                 }
                 .success {
-                    margin-top: calc(-1 * var(--fontSize));
+                    // margin-top: calc(-1 * var(--fontSize));
                     transform: translateY(300%) scale(0);
                     color: $blue;
                 }

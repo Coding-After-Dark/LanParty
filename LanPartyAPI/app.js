@@ -31,10 +31,7 @@ function readFiles() {
       })
     }
     savedGames = awesomeArray;
-    console.log(savedGames);
-    console.log("saved some games:" + savedGames.length)
     if (err) {
-      console.log("yo", err)
       return;
     }
   });
@@ -50,7 +47,7 @@ var people = [];
 var http = require('http').Server(appExp);
 var socket = require('socket.io')(http);
 http.listen(3001, function () {
-  console.log('listening on *:3001');
+  console.log('SocketIO listening on *:3001');
 });
 
 

@@ -27,6 +27,7 @@ import { TurnamentService } from './services/turnament.service';
 import {NgxLocalStorageModule} from 'ngx-localstorage';
 import { GameService } from './games/shared/game.service';
 import { GameFilterPipe } from './games/shared/game-filter.pipe';
+import { GameviewComponent } from './shared/gameview/gameview.component';
 const appRoutes: Routes = [
   { path: 'Forside', component: ForsideComponent },
   { path: 'Time', component: TimeScheduelComponent },
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     ApiComponent,
     ListComponent,
     EditComponent,
+    GameviewComponent,
     ChatComponent,
     TurnamentComponent,
     GameComponent,

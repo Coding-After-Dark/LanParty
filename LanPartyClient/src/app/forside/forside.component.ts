@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { ConnectionService } from '../services/connection.service';
 import { ElectronService } from 'ngx-electron';
 import { IgdbService } from '../services/igdb.service';
@@ -22,7 +22,6 @@ export class ForsideComponent implements OnInit {
   constructor(_connectionService: ConnectionService,
     public _gameService: GameService,
     private _electronService: ElectronService,
-    private ref: ChangeDetectorRef,
     public _igdb: IgdbService) {
     this.title = _connectionService.serverIP;
 

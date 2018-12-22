@@ -1,127 +1,45 @@
 import { AfterViewInit, Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { GameService } from '../../services/game.service';
 import { ElectronService } from 'ngx-electron';
+import { GameService } from '../../games/shared/game.service';
+import { states } from '../../games/shared/game';
 
 @Component({
   selector: 'app-gameview',
   templateUrl: './gameview.component.html',
   styleUrls: ['./gameview.component.scss']
 })
-export class GameviewComponent implements AfterViewInit, OnInit {
-  $: JQuery | any;
+export class GameviewComponent implements  OnInit {
   games: any = [];
   modalOpen = false;
-  constructor(public _gameService: GameService,
-    public _electronService: ElectronService,
-    private ref: ChangeDetectorRef) {
-
+  constructor(public ref:ChangeDetectorRef, public _gameService:GameService,
+    public _electronService: ElectronService) {
+      this._gameService.games.subscribe(
+        games => {
+          this.games = games;
+        }
+      )
 
     if (this._electronService.isElectronApp) {
       this._electronService.ipcRenderer.on('stopDownloading', function (event, data) {
-        const bla = _gameService.games.find(it => {
-          return it.name.toLowerCase().includes(data.toLowerCase());
+        const game = this.games.find(it => {
+          return it.title.toLowerCase().includes(data.toLowerCase());
         });
-        bla.isDownloading = false;
-        bla.procent = 'installed';
+        game.state = states.isCompleted;
+        game.percentage;
         ref.detectChanges();
       });
 
       this._electronService.ipcRenderer.on('updateP', (event, data) => {
-        const bla = _gameService.games.find(it => {
-          return it.name.toLowerCase().includes(data.name.toLowerCase());
+        const bla = this.games.find(it => {
+          return it.title.toLowerCase().includes(data.name.toLowerCase());
         });
-        bla.isDownloading = false;
-        bla.procent = data.procent + '%';
+        bla.state = states.isDownloading;
+        bla.percentage = data.procent;
         ref.detectChanges();
-        console.log(bla);
       });
     }
-
-    this.games = [
-      {
-        id: 1,
-        title: 'Warcraft III: The Frozen Throne',
-        genre: 'Rts',
-        description: 'Real-time strategy game in a fantasy setting.',
-        imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/warkeyigiyyknusmfev2.jpg',
-        playerCount: 10,
-        asda: 12
-      },
-      {
-        id: 2,
-        title: 'Left 4 Dead 2',
-        genre: 'Fps',
-        // tslint:disable-next-line:max-line-length
-        description: 'Left 4 Dead 2 is a 2-4 player co-op first person shooter that requires tons of cooperation and intense zombie slaughtering in order to survive.There is a variety of enemies, weapons, and objectives to keep things interesting, with co-op that is focused around having fun playing with your friends.',
-        imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/eckumjvspgvgsap4wmp2.jpg',
-        playerCount: 4
-      },
-      {
-        id: 3,
-        title: 'Dota 2',
-        genre: 'Rts',
-        // tslint:disable-next-line:max-line-length
-        description: 'Dota 2 is a multiplayer online battle arena video game and the stand-alone sequel to the Defense of the Ancients (DotA) mod. Each match of Dota 2 involves two teams, both containing five players and occupying a fortified stronghold at either end of the map. Victory is achieved by destroying the enemys Ancient, a building that is invulnerable until certain objectives are achieved. Each player controls a "Hero" character and focuses on leveling up, acquiring items and fighting against the other team to achieve victory during each match.',
-        imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/qcx7vedma0pvf0hzisxc.jpg',
-        playerCount: 5
-      },
-      {
-        id: 4,
-        title: 'Rocket League',
-        genre: 'Sports',
-        // tslint:disable-next-line:max-line-length
-        description: 'Rocket League is a third-person, physics based soccer game, where players control rocket powered cars in order to hit the ball towards a goal. Basically, a car based soccer/football game.',
-        imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/nocover_qhhlj6.jpg',
-        playerCount: 3
-      },
-      {
-        id: 5,
-        title: 'Team Fortress 2',
-        genre: 'Fps',
-        // tslint:disable-next-line:max-line-length
-        description: 'Team Fortress 2 is a multi-platform, first-person shooter, multiplayer game that focuses on team based gameplay, where each player has their own unique role on the team.',
-        imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/ijp2rheve0eccuhtanli.jpg',
-        playerCount: 4
-      },
-      {
-        id: 6,
-        title: 'Supreme Commander: Forged Alliance',
-        genre: 'Rts',
-        description: 'Supreme Commander is a real time strategy game set in a fictional sci-fi universe.',
-        imageUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/x2gbk38zhbhxhs2omgsr.jpg',
-        playerCount: 7
-      },
-
-    ];
   }
-  ngAfterViewInit() {
-    // const values = '';
-    // //#region Isotope
-    // const fn = this;
-    // fn.$ = $('.game-list').isotope({
-    //   itemSelector: '.game-card-wrapper',
-    //   masonry: {
-    //     fitWidth: true
-    //   }
-    // });
-    // // reveal all items after init
-    // const $items = fn.$.find('.game-card-wrapper');
-    // // fn.$.addClass('is-showing-items')
-    // //   .isotope('revealItemElements', $items);
-    //   $items.each( function(){
-    //     fn.$.addClass('is-showing-items')
-    //     .isotope('revealItemElements', $items);
-    //   });
 
-      // $('.button-group').each( function( i, buttonGroup ) {
-      //   var $buttonGroup = $( buttonGroup );
-      //   $buttonGroup.on( 'click', 'button', function() {
-      //     $buttonGroup.find('.is-checked').removeClass('is-checked');
-      //     $( this ).addClass('is-checked');
-      //   });
-      // });
-    //#endregion
-  }
   getGame(Game) {
     if (this._electronService.isElectronApp) {
       Game.isDownloading = true;
@@ -132,12 +50,6 @@ export class GameviewComponent implements AfterViewInit, OnInit {
   onSearchChange(searchValue: string) {
     const fn = this;
     searchValue = searchValue.toLowerCase();
-    fn.$.isotope({
-      filter: function() {
-        // console.log($(this));
-        return searchValue ? $(this).text().toLowerCase().match( searchValue ) : true;
-      }
-    });
   }
 
   ngOnInit() {

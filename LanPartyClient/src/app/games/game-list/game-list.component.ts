@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GameService } from '../shared/game.service';
 import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
@@ -13,7 +13,8 @@ import * as $ from 'jquery';
 })
 
 export class GameListComponent implements OnInit, AfterViewInit {
-  filteredGames: IGame[];
+  filteredGames: IGame[] = [];
+  games:IGame[] = [];
   _listFilter = '';
 
   // get listFilter(): string {
@@ -27,12 +28,18 @@ export class GameListComponent implements OnInit, AfterViewInit {
 
   constructor(public _gameService: GameService) {
     this._listFilter = '';
-    this.filteredGames = _gameService.games;
+      _gameService.games.subscribe(
+      games => {
+        this.filteredGames = games;
+        this.games = games;
+        
+      }
+    );
   }
 
   performFilter(filterBy: string): IGame[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this._gameService.games.filter((game: IGame) => game.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    return this.games.filter((game: IGame) => game.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   ngOnInit() {
@@ -43,13 +50,4 @@ export class GameListComponent implements OnInit, AfterViewInit {
     // // #endregion
   }
 
-  clear(event: MouseEvent) {
-    $('.game-card').removeClass('game-card--active');
-    $('.download').removeClass('active');
-    $('.download-btn').removeClass('active finished');
-    $('.progress-wrapper').removeClass('active');
-    $('.progress__text').removeClass('completed').clearQueue();
-    $('.success').removeClass('active');
-    $('.progress-wrapper').css({ '--sPercentage': '"' + 0 + '%"', '--iPercentage': 0 + '' });
-  }
 }

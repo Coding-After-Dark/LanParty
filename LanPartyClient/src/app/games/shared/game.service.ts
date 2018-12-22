@@ -1,6 +1,6 @@
-import { Injectable, ChangeDetectorRef } from '@angular/core';
+import { Injectable, ApplicationRef } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { ElectronService } from 'ngx-electron';
 
@@ -8,28 +8,40 @@ import { IGame } from './game';
 
 @Injectable()
 export class GameService {
-  games: IGame[] = [];
-  constructor(public _socketService: SocketService, private _electronService: ElectronService, public ref: ChangeDetectorRef) {
+  private gameSource = new BehaviorSubject<IGame[]>([]);
+
+  games = this.gameSource.asObservable();
+
+  constructor(public _socketService: SocketService, private _electronService: ElectronService, public ref:ApplicationRef) {
 
     this.getGames().subscribe((games: IGame[]) => {
-      this.games = games;
+      this.gameSource.next(games);
     });
 
     if (this._electronService.isElectronApp) {
       this._electronService.ipcRenderer.on('stopDownloading', (event, data) => {
-        const game = this.games.find(p => p.slug === data.split('.')[0]);
-        game.percentage = 100;
-        game.state = 2;
-        console.log(game);
-        ref.detectChanges();
+        this.games.subscribe(
+          games => {
+            let game = games.find(p => p.slug === data.name);
+            game.percentage = 100;
+            game.state = 2;
+            console.log(game);
+            ref.tick();
+          }
+        )
+
       });
 
       this._electronService.ipcRenderer.on('updateP', (event, data) => {
-        const game = this.games.find(p => p.slug === data.name.split('.')[0]);
 
-        game.percentage = data.percentage.toFixed(0);
-        console.log(game.percentage);
-        ref.detectChanges();
+        this.games.subscribe(
+          games => {
+            let game = games.find(p => p.slug === data.name);
+            game.percentage = data.percentage.toFixed(0);
+            console.log(game.percentage);
+            ref.tick();
+          }
+        )
       });
     }
     // this.getGames().subscribe(games => {
